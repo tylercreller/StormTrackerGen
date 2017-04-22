@@ -1,0 +1,23 @@
+<template name="safetyPrecautions">
+    <div class="safety-precautions-container">
+        <label>Safety Precautions</label>
+        {{#if numOfPrecautions}}
+            <div class="safety-precautions">
+                {{#each loopCount numOfPrecautions}}
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Choose One <span class="caret"></span>
+                        </button>
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <ul class="dropdown-menu">
+                            {{#each precautions}}
+                                <li><a href="#" value="{{this}}">{{this}}</a></li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                {{/each}}
+            </div>
+        {{/if}}
+        <button type="button" class="btn btn-success add-precaution add-btn">Add safety precaution</button>
+    </div>
+</template>

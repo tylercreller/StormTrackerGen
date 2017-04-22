@@ -1,0 +1,35 @@
+<template name="counties">
+    <div class="counties-container">
+        <label>Affected Counties</label>
+        {{#if numOfCounties}}
+            <div class="counties">
+                {{#each loopCount numOfCounties}}
+                    <div class="county-group">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Location <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                {{#each cardinalOptions}}
+                                    <li><a href="#" value="{{this}}">{{this}}</a></li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                County <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                {{#each countyOptions}}
+                                    <li><a href="#" value="{{this}}">{{this}}</a></li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </div>
+                {{/each}}
+            </div>
+        {{/if}}
+        <button type="button" class="btn btn-success add-county add-btn">Add affected county</button>
+    </div>
+</template>

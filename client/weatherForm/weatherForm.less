@@ -1,0 +1,54 @@
+.weather-form {
+  position: relative;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, 0);
+
+  background: rgba(114, 124, 140, 0.7);
+  box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
+
+  text-align: center;
+  padding: 20px 30px;
+  color: #3d454f;
+  border-radius: 20px;
+
+  width: 60%;
+  @media (max-width:800px)  {
+    /* smartphones, Android phones, landscape iPhone */
+    width: 100%;
+  }
+}
+
+.forecasters-briefing {
+  margin: 10px 0 10px 0;
+  textarea {
+    resize: vertical;
+  }
+}
+
+.preview-post {
+  margin: 10px 0 10px 0;
+  textarea {
+    resize: vertical;
+  }
+}
+
+.date-time {
+  margin: 10px auto auto auto;
+  display: block;
+}
+
+.add-btn {
+  border: 2px dashed;
+  &:hover {
+    border-color: #ffffff;
+  }
+  &:focus {
+    outline: none;
+    border-color: #ffffff
+  }
+}
+
+.photo-url-container {
+  display: block;
+}

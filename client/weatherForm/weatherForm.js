@@ -1,0 +1,202 @@
+import {Template} from 'meteor/templating';
+import {HTTP} from 'meteor/http';
+
+import './weatherForm.html';
+
+var self = this,
+    dateFormat = require('dateformat');
+
+self.generateText = function generateText() {
+    var startDate = new Date($(".start-date").val()),
+        endDate = new Date($(".end-date").val()),
+        precautions = $('.safety-precautions .btn-group .btn'),
+        thunderstorms = $('.thunderstorms .btn-group .btn'),
+        confidence = $('.confidence .btn-group .btn'),
+        impact = $('.intensity .btn-group .btn'),
+        visibility = $('.visibility .btn-group .btn'),
+        traveling = $('.traveling .btn-group .btn'),
+        powerOutage = $('.power-outage .btn-group .btn'),
+        countyGroup = $('.counties .county-group'),
+        forecastersBriefing = $('.forecasters-briefing textarea')[0].value,
+        fullName = Meteor.user().profile.name,
+        text = '';
+
+    text += 'STORM TRACKERS TEAM NY ALERT\n';
+
+    // Dates
+    // Friday, March 3, 2017 @ 8:30 AM
+    var now = new Date();
+    text += dateFormat(now, "dddd, mmmm dS, yyyy @ h:MM TT") + '\n\n';
+
+    // Title text
+    text += 'The Storm Trackers Team has issued an... ' + '\n\n';
+
+    // Warning level
+
+    // Time Start
+    text += startDate !== 'Invalid Date' ? 'TIME START: ' + startDate.toString() + '\n\n' : '';
+
+    // Time expires
+    text += endDate !== 'Invalid Date' ? 'TIME END: ' + endDate.toString() + '\n\n' : '';
+
+    // Counties Affected
+    text += 'COUNTIES AFFECTED: \n';
+    for(var i = 0; i < countyGroup.length; i++) {
+        var county = $(countyGroup[i]).find('.btn-group .btn');
+        text += county[0].innerHTML;
+        if (county.length === 2) {
+            text += ' ' + county[1].innerHTML;
+        }
+        text += '\n';
+    }
+    text += '\n';
+
+    // Confidence
+    if(confidence[0].innerHTML.trim() !== 'NONE') {
+        text += 'FORECASTER\'S CONFIDENCE LEVEL: ' + confidence[0].innerHTML.trim() + '\n\n';
+    }
+
+    // Impact
+    if(impact[0].innerHTML.trim() !== 'NONE') {
+        text += 'OVERALL IMPACT INTENSITY SCALE: ' + impact[0].innerHTML.trim() + '\n\n';
+    }
+
+    // Visibility
+    if(visibility[0].innerHTML.trim() !== 'NONE') {
+        text += 'VISIBILITY IMPACT: ' + visibility[0].innerHTML.trim() + '\n\n';
+    }
+
+    // Traveling
+    if(traveling[0].innerHTML.trim() !== 'NONE') {
+        text += 'TRAVELING IMPACT: ' + traveling[0].innerHTML.trim() + '\n\n';
+    }
+
+    // Power Outage
+    if(powerOutage[0].innerHTML.trim() !== 'NONE') {
+        text += 'POWER OUTAGE IMPACT: ' + powerOutage[0].innerHTML.trim() + '\n\n';
+    }
+
+    // Thunderstorms
+    if (thunderstorms.length) {
+        text += 'THUNDERSTORMS COULD PRODUCE: \n';
+        for(var i = 0; i < thunderstorms.length; i++) {
+            text += thunderstorms[i].innerHTML + '\n';
+        }
+        text += '\n\n'
+    }
+
+    // Precautions
+    if (precautions.length) {
+        text += 'SAFETY PRECAUTIONS: \n';
+        for(var i = 0; i < precautions.length; i++) {
+            text += precautions[i].innerHTML + '\n';
+        }
+        text += '\n\n'
+    }
+
+    // Custom Text
+    if (forecastersBriefing) {
+        text += 'FORECASTER\'S BRIEFING: \n';
+        text += forecastersBriefing + '\n\n';
+    }
+
+    // Forecaster
+    if (fullName === 'William Boggess') {
+        fullName = fullName.split(' ');
+        fullName[0] = 'Bill';
+        text += fullName.join(' ') + '\n';
+    } else {
+        text += fullName + '\n';
+    }
+    // Title
+    if (fullName === 'Jack Matthys') {
+        text += 'CEO/Founder' + '\n\n';
+    } else {
+        text += 'Forecaster' + '\n\n'
+    }
+
+    // Reporting Info
+    text += 'REPORTING INFORMATION:\n' +
+        'Weather Reporting Hotline: 315.332.1043\n' +
+        'Email:  stormtrackershotline@gmail.com';
+
+    return text;
+};
+
+Template.weatherForm.onRendered(function() {
+    this.$('.startDateTime').datetimepicker();
+    this.$('.endDateTime').datetimepicker();
+});
+
+Template.weatherForm.onCreated(function mainOnCreated(){});
+
+Template.weatherForm.helpers({
+    showSample: function() {
+        return Session.get('showSample');
+    }
+});
+
+Template.weatherForm.events({
+    'click .copy'(event, instance) {
+        window.prompt("Copy to clipboard: Ctrl+C, Enter", $('.preview-post textarea')[0].value);
+    },
+    'click .post-to-facebook'(event, instance) {
+        var user = Meteor.users.findOne(Meteor.userId()),
+            fbAccessToken = user.services.facebook.accessToken,
+            pageAccessToken,
+            pageId,
+            page,
+            params,
+            postType = 'feed',
+            photoUrl = $('.photoUrl').val(),
+            text = self.generateText();
+        HTTP.call(
+            'GET',
+            'https://graph.facebook.com/v2.8/me?fields=id,name,accounts&access_token=' + fbAccessToken,
+            {/* options */},
+            function (err, response) {
+                page = _.find(response.data.accounts.data, function (o) {return o.id === "1742942359353590"});
+                pageAccessToken = page.access_token;
+                pageId = page.id;
+
+                params = {
+                    "access_token": pageAccessToken,
+                    "message": text
+                };
+
+                if (photoUrl) {
+                    postType = 'photos';
+                    params.url = photoUrl;
+                }
+
+                HTTP.call(
+                    'POST',
+                    'https://graph.facebook.com/'+ pageId +'/' + postType,
+                    {
+                        params: params
+                    },
+                    function (err, response) {
+                        if(err) {
+                            swal("Oops...", "Something went wrong!", "error");
+                        } else {
+                            var id = response.data.post_id ? response.data.post_id : response.data.id,
+                                arr = id.split('_'),
+                                link = "https://www.facebook.com/" + arr[0] + "/posts/" + arr[1];
+                            swal("Success!",
+                                "Your alert has been posted\n",
+                                "success");
+                            $('.sweet-alert p').append('<a href=\"' + link + '\" target="_blank">See post</a>');
+                        }
+                    }
+                );
+            }
+        );
+    },
+    'click .generate-sample' (event, instance) {
+        Session.set('showSample', true);
+
+        // Apply text
+        $(".preview-text").val(self.generateText());
+
+    }
+});

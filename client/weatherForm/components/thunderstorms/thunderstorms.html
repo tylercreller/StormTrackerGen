@@ -1,0 +1,23 @@
+<template name="thunderstorms">
+    <div class="thunderstorms-container">
+        <label>Thunderstorms could produce</label>
+        {{#if numOfEvents}}
+            <div class="thunderstorms">
+                {{#each loopCount numOfEvents}}
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Choose One <span class="caret"></span>
+                        </button>
+                        <span class="glyphicon glyphicon-remove"></span>
+                        <ul class="dropdown-menu">
+                            {{#each events}}
+                                <li><a href="#" value="{{this}}">{{this}}</a></li>
+                            {{/each}}
+                        </ul>
+                    </div>
+                {{/each}}
+            </div>
+        {{/if}}
+        <button type="button" class="btn btn-success add-event add-btn">Add event</button>
+    </div>
+</template>

@@ -1,0 +1,90 @@
+<template name="weatherForm">
+    <form class="weather-form">
+        <label><input class="date-time-checkbox" type="radio" checked="checked" name="dateTimeCheckbox" required> Add Current Date/Time</label>
+        <div class="row">
+            <div class=" date-time col-sm-6">
+                <label for="startDate">Time Start</label>
+                <div class="input-group startDateTime">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    <input class="start-date form-control" type="text" name="startDate"/>
+                </div>
+            </div>
+            <div class="date-time col-sm-6">
+                <label for="endDate">Time Expires</label>
+                <div class="input-group endDateTime">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+                    <input class="end-date form-control" type="text" name="endDate"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Counties -->
+        {{> counties}}
+
+        <div class="row">
+            <!-- Confidence -->
+            <div class="col-sm-6">
+                {{> confidence}}
+            </div>
+
+            <!-- Intensity -->
+            <div class="col-sm-6">
+                {{> intensity}}
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Visibility Impact -->
+            <div class="col-sm-6">
+                {{> visibility}}
+            </div>
+
+            <!-- Traveling Impact -->
+            <div class="col-sm-6">
+                {{> traveling}}
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Power Outage Impact -->
+            <div class="col-sm-6">
+                {{> powerOutage}}
+            </div>
+        </div>
+
+        <!-- Thunderstorms -->
+        {{> thunderstorms}}
+
+        <!-- Safety Precautions -->
+        {{> safetyPrecautions}}
+
+        <div class="forecasters-briefing">
+            <label for="forecastersBriefing">Forecaster's Briefing</label>
+            <textarea required="true" class="form-control" rows="5" name="forecastersBriefing" placeholder="Enter Briefing"></textarea>
+        </div>
+
+        {{#if showSample}}
+        <div class="preview-post">
+            <label for="previewPost">Preview Post</label>
+            <textarea class="form-control preview-text" rows="5" name="previewPost" disabled readonly></textarea>
+        </div>
+        {{/if}}
+
+        <div class="photo-url-container">
+            <label for="photoUrl">Photo URL</label>
+            <input class="photoUrl" name="photoUrl" type="text" />
+        </div>
+
+        <div class="footer">
+            <div class="row">
+                <div class="col-sm-6">
+                    <button class="generate-sample btn btn-default" type="button">Generate Preview</button>
+                </div>
+                <div class="col-sm-6">
+                    <button class="copy btn btn-default" type="button">Copy to Clipboard</button>
+                </div>
+            </div>
+            <button class="post-to-facebook btn btn-default" type="button">Post to Facebook</button>
+        </div>
+    </form>
+</template>

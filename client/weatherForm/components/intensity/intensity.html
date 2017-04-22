@@ -1,0 +1,15 @@
+<template name="intensity">
+    <div class="intensity">
+        <label>Overall Impact Intensity Scale</label>
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                NONE
+            </button>
+            <ul class="dropdown-menu">
+                {{#each intensity}}
+                    <li><a href="#" value="{{this}}">{{this}}</a></li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</template>
