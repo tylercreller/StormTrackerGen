@@ -9,6 +9,10 @@ var self = this,
 self.generateText = function generateText() {
     var startDate = new Date($(".start-date").val()),
         endDate = new Date($(".end-date").val()),
+        customStartCheck = $('#customStart .checkbox').is(':checked'),
+        customStartVal = $('#customStart .input')[0].value,
+        customEndCheck = $('#customEnd .checkbox').is(':checked'),
+        customEndVal = $('#customEnd .input')[0].value,
         precautions = $('.safety-precautions .btn-group .btn'),
         thunderstorms = $('.thunderstorms .btn-group .btn'),
         confidence = $('.confidence .btn-group .btn'),
@@ -29,27 +33,48 @@ self.generateText = function generateText() {
     text += dateFormat(now, "dddd, mmmm dS, yyyy @ h:MM TT") + '\n\n';
 
     // Title text
-    text += 'The Storm Trackers Team has issued an... ' + '\n\n';
+    text += 'The Storm Trackers Team has issued an...\nALERT(S):\n';
 
     // Warning level
 
-    // Time Start
-    text += startDate !== 'Invalid Date' ? 'TIME START: ' + startDate.toString() + '\n\n' : '';
+    text += '\n\n';
 
-    // Time expires
-    text += endDate !== 'Invalid Date' ? 'TIME END: ' + endDate.toString() + '\n\n' : '';
-
-    // Counties Affected
-    text += 'COUNTIES AFFECTED: \n';
-    for(var i = 0; i < countyGroup.length; i++) {
-        var county = $(countyGroup[i]).find('.btn-group .btn');
-        text += county[0].innerHTML;
-        if (county.length === 2) {
-            text += ' ' + county[1].innerHTML;
+    if (startDate.toString() !== 'Invalid Date' || customStartCheck) {
+        text += 'TIME START: ';
+        // Time Start
+        if (customStartCheck) {
+            text += customStartVal;
+        } else {
+            text += startDate.toString();
         }
         text += '\n';
     }
-    text += '\n';
+
+    if (endDate.toString() !== 'Invalid Date'  || customEndCheck) {
+        text += 'TIME END: ';
+        // Time expires
+        if (customEndCheck) {
+            text += customEndVal;
+        } else {
+            text += endDate.toString();
+        }
+        text += '\n\n';
+    }
+
+    // Counties Affected
+    if (countyGroup.length) {
+        text += 'COUNTIES AFFECTED: \n';
+        for(var i = 0; i < countyGroup.length; i++) {
+            var county = $(countyGroup[i]).find('.btn-group .btn');
+            text += county[0].innerHTML;
+            if (county.length === 2) {
+                text += ' ' + county[1].innerHTML;
+            }
+            text += '\n';
+        }
+        text += '\n';
+    }
+
 
     // Confidence
     if(confidence[0].innerHTML.trim() !== 'NONE') {
@@ -197,6 +222,27 @@ Template.weatherForm.events({
 
         // Apply text
         $(".preview-text").val(self.generateText());
+    },
 
+    'click #customStart .checkbox' (event, instance) {
+        var ele = $('.start-date');
+        if (event.target.checked) {
+            ele.attr("disabled", true).val("");
+            $(event.target.parentElement.nextElementSibling).removeAttr("disabled");
+        } else {
+            ele.removeAttr('disabled');
+            $(event.target.parentElement.nextElementSibling).attr("disabled", true).val("");
+        }
+    },
+
+    'click #customEnd .checkbox' (event, instance) {
+        var ele = $('.end-date');
+        if (event.target.checked) {
+            ele.attr("disabled", true).val("");
+            $(event.target.parentElement.nextElementSibling).removeAttr("disabled");
+        } else {
+            ele.removeAttr('disabled');
+            $(event.target.parentElement.nextElementSibling).attr("disabled", true).val("");
+        }
     }
 });

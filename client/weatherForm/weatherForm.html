@@ -1,6 +1,5 @@
 <template name="weatherForm">
     <form class="weather-form">
-        <label><input class="date-time-checkbox" type="radio" checked="checked" name="dateTimeCheckbox" required> Add Current Date/Time</label>
         <div class="row">
             <div class=" date-time col-sm-6">
                 <label for="startDate">Time Start</label>
@@ -14,6 +13,26 @@
                 <div class="input-group endDateTime">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     <input class="end-date form-control" type="text" name="endDate"/>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label>Custom Start</label>
+                <div class="input-group"  id="customStart">
+                    <span class="input-group-addon">
+                        <input type="checkbox" class="checkbox">
+                    </span>
+                    <input type="text" class="input form-control" disabled />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label>Custom Expire</label>
+                <div class="input-group"  id="customEnd">
+                    <span class="input-group-addon">
+                        <input type="checkbox" class="checkbox">
+                    </span>
+                    <input type="text" class="input form-control" disabled />
                 </div>
             </div>
         </div>
@@ -60,19 +79,20 @@
 
         <div class="forecasters-briefing">
             <label for="forecastersBriefing">Forecaster's Briefing</label>
-            <textarea required="true" class="form-control" rows="5" name="forecastersBriefing" placeholder="Enter Briefing"></textarea>
+            <textarea required="true" class="form-control" rows="5" name="forecastersBriefing"
+                      placeholder="Enter Briefing"></textarea>
         </div>
 
         {{#if showSample}}
-        <div class="preview-post">
-            <label for="previewPost">Preview Post</label>
-            <textarea class="form-control preview-text" rows="5" name="previewPost" disabled readonly></textarea>
-        </div>
+            <div class="preview-post">
+                <label for="previewPost">Preview Post</label>
+                <textarea class="form-control preview-text" rows="5" name="previewPost" disabled readonly></textarea>
+            </div>
         {{/if}}
 
         <div class="photo-url-container">
             <label for="photoUrl">Photo URL</label>
-            <input class="photoUrl" name="photoUrl" type="text" />
+            <input class="photoUrl" name="photoUrl" type="text"/>
         </div>
 
         <div class="footer">
