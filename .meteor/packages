@@ -31,3 +31,4 @@ tsega:bootstrap3-datetimepicker
 facebook-config-ui@1.0.0
 erasaur:meteor-lodash
 kevohagan:sweetalert
+session

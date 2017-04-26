@@ -1,5 +1,6 @@
 import {Template} from 'meteor/templating';
 import {HTTP} from 'meteor/http';
+import {Session} from 'meteor/session';
 
 import './weatherForm.html';
 
