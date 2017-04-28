@@ -14,6 +14,8 @@ self.generateText = function generateText() {
         customStartVal = $('#customStart .input')[0].value,
         customEndCheck = $('#customEnd .checkbox').is(':checked'),
         customEndVal = $('#customEnd .input')[0].value,
+        //alertType = $('.alertType .btn'),
+        alertLevel = $('.alertDef .btn'),
         precautions = $('.safety-precautions .btn-group .btn'),
         thunderstorms = $('.thunderstorms .btn-group .btn'),
         confidence = $('.confidence .btn-group .btn'),
@@ -26,19 +28,25 @@ self.generateText = function generateText() {
         fullName = Meteor.user().profile.name,
         text = '';
 
-    text += 'STORM TRACKERS TEAM NY ALERT\n';
+    if (alertLevel[0].innerHTML !== 'Special Weather Report') {
+        text += 'STORM TRACKERS TEAM NY ALERT\n';
+    } else {
+        text += alertLevel[0].innerHTML + '\n';
+    }
 
     // Dates
     // Friday, March 3, 2017 @ 8:30 AM
     var now = new Date();
     text += dateFormat(now, "dddd, mmmm dS, yyyy @ h:MM TT") + '\n\n';
 
-    // Title text
-    text += 'The Storm Trackers Team has issued an...\nALERT(S):\n';
+    if (alertLevel[0].innerHTML !== 'Special Weather Report') {
+        // Title text
+        text += 'The Storm Trackers Team has issued an...\nALERT(S):\n';
 
-    // Warning level
-
-    text += '\n\n';
+        // Alert
+        text += alertLevel[0].innerHTML;
+        text += '\n\n';
+    }
 
     if (startDate.toString() !== 'Invalid Date' || customStartCheck) {
         text += 'TIME START: ';

@@ -1,0 +1,30 @@
+<template name="alertLevels">
+    <div class="alertLevels">
+        <label>Alert & Level <a href="https://docs.google.com/a/williamsoncentral.org/document/d/1rJF-92B0mIvxyPGRLwFkVIkFUhWopxhmJHJzsROw6uE/edit?usp=sharing" target="_blank"><span class="glyphicon glyphicon-link"></span></a></label>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="dropdown alertType">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="alertType" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Alert Type
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu alertType-menu" aria-labelledby="dropdownMenuAlert">
+                        {{#each alertTypes}}
+                            <li><a href="#" value="{{this}}">{{this}}</a></li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="dropdown alertDef">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="alertDef" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Choose One
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu alertDef-menu" aria-labelledby="dropdownMenuAlert">
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
