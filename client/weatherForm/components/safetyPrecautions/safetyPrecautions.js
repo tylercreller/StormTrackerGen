@@ -36,7 +36,8 @@ Template.safetyPrecautions.helpers({
             'Boaters should stay clear of waterspouts',
             'Careful when walking on driveways and sidewalks',
             'If caught outside in a t-storm, stay away from trees / power lines',
-            'If caught outside in a t-storm, lay in the nearest ditch if sturdy shelter is not available to you'
+            'If caught outside in a t-storm, lay in the nearest ditch if sturdy shelter is not available to you',
+            'If you live in a flood prone area, remain alert and ready to seek higher grounds if needed. Water can rise quickly! Turn around don’t drown!'
         ];
     },
 
