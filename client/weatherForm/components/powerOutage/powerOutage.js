@@ -23,7 +23,12 @@ Template.powerOutage.helpers({
 Template.powerOutage.events({
     'click .dropdown-menu li a' (event, instance){
         event.preventDefault();
-        $(event.target.parentElement.parentElement.previousElementSibling).text(event.target.innerHTML);
-        $(event.target.parentElement.parentElement.previousElementSibling).val(event.target.innerHTML);
+        if(event.target.parentElement.parentElement.previousElementSibling.previousElementSibling) {
+            $(event.target.parentElement.parentElement.previousElementSibling.previousElementSibling).text(event.target.innerHTML);
+            $(event.target.parentElement.parentElement.previousElementSibling.previousElementSibling).val(event.target.innerHTML);
+        } else {
+            $(event.target.parentElement.parentElement.previousElementSibling).text(event.target.innerHTML);
+            $(event.target.parentElement.parentElement.previousElementSibling).val(event.target.innerHTML);
+        }
     }
 });
