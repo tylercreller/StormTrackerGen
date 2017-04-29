@@ -4,16 +4,18 @@
         {{#if numOfEvents}}
             <div class="thunderstorms">
                 {{#each loopCount numOfEvents}}
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Choose One <span class="caret"></span>
-                        </button>
+                    <div class="thunderstorm-group">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Choose One <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                {{#each events}}
+                                    <li><a href="#" value="{{this}}">{{this}}</a></li>
+                                {{/each}}
+                            </ul>
+                        </div>
                         <span class="glyphicon glyphicon-remove"></span>
-                        <ul class="dropdown-menu">
-                            {{#each events}}
-                                <li><a href="#" value="{{this}}">{{this}}</a></li>
-                            {{/each}}
-                        </ul>
                     </div>
                 {{/each}}
             </div>
