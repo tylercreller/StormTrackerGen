@@ -1,6 +1,5 @@
 import {Template} from 'meteor/templating';
 import {HTTP} from 'meteor/http';
-import {Session} from 'meteor/session';
 
 import './weatherForm.html';
 
@@ -26,7 +25,16 @@ self.generateText = function generateText() {
         countyGroup = $('.counties .county-group'),
         forecastersBriefing = $('.forecasters-briefing textarea')[0].value,
         fullName = Meteor.user().profile.name,
-        text = '';
+        text = '',
+        levelDefs = {
+            'Awareness': 'Awareness Level - Nuisance weather expected, some level of caution needed.',
+            'Potential': 'Potential Level - Possibility of hazardous weather. Continue to monitor situation.',
+            'Action': 'Action Level - Hazardous weather is likely to occur. Some level of action will be needed.',
+            'Immediate': 'Immediate Action Level - Hazardous weather is likely to occur shortly. Action is required now! Mainly used for thunderstorms and tornadoes.',
+            'Emergency': 'Emergency Level - Extreme to catastrophic weather is expected or has already begun to occur. Action is needed to save life and property!'
+        },
+        levelDefSpec = levelDefs[alertLevel[0].innerHTML.split(' ')[0]];
+
 
     if (alertLevel[0].innerHTML !== 'Special Weather Report') {
         text += 'STORM TRACKERS TEAM NY ALERT\n';
@@ -149,6 +157,12 @@ self.generateText = function generateText() {
         text += 'Forecaster' + '\n\n'
     }
 
+    // Level Definitions
+    if (!!levelDefSpec) {
+        text += 'LEVEL DEFINITIONS:\n';
+        text += levelDefSpec + '\n\n';
+    }
+
     // Reporting Info
     text += 'REPORTING INFORMATION:\n' +
         'Weather Reporting Hotline: 315.332.1043\n' +
@@ -160,15 +174,12 @@ self.generateText = function generateText() {
 Template.weatherForm.onRendered(function() {
     this.$('.startDateTime').datetimepicker();
     this.$('.endDateTime').datetimepicker();
+    $(".preview-post").hide();
 });
 
 Template.weatherForm.onCreated(function mainOnCreated(){});
 
-Template.weatherForm.helpers({
-    showSample: function() {
-        return Session.get('showSample');
-    }
-});
+Template.weatherForm.helpers({});
 
 Template.weatherForm.events({
     'click .copy'(event, instance) {
@@ -227,8 +238,7 @@ Template.weatherForm.events({
         );
     },
     'click .generate-sample' (event, instance) {
-        Session.set('showSample', true);
-
+        $(".preview-post").show();
         // Apply text
         $(".preview-text").val(self.generateText());
     },
