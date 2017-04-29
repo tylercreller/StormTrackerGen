@@ -56,6 +56,7 @@ self.generateText = function generateText() {
         text += '\n\n';
     }
 
+    // TODO DATEFORMAT
     if (startDate.toString() !== 'Invalid Date' || customStartCheck) {
         text += 'TIME START: ';
         // Time Start
