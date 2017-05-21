@@ -1,0 +1,25 @@
+<template name="possibleDamage">
+    <div class="possible-damage-container">
+        <label>Possible Damage Expected</label>
+        {{#if numOfDamages}}
+            <div class="possible-damage">
+                {{#each loopCount numOfDamages}}
+                    <div class="possible-damage-group">
+                        <div class="btn-group add-field">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Choose One <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                {{#each possibleDamage}}
+                                    <li><a href="#" value="{{this}}">{{this}}</a></li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </div>
+                {{/each}}
+            </div>
+        {{/if}}
+        <button type="button" class="btn btn-success add-damages add-btn">Add Possible Damage Expected</button>
+    </div>
+</template>

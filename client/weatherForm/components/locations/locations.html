@@ -1,0 +1,25 @@
+<template name="locations">
+    <div class="locations-container">
+        <label>Non-County Specific Locations</label>
+        {{#if numOfLocations}}
+            <div class="locations">
+                {{#each loopCount numOfLocations}}
+                    <div class="locations-group">
+                        <div class="btn-group add-field">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Choose One <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                {{#each locations}}
+                                    <li><a href="#" value="{{this}}">{{this}}</a></li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </div>
+                {{/each}}
+            </div>
+        {{/if}}
+        <button type="button" class="btn btn-success add-location add-btn">Add location</button>
+    </div>
+</template>

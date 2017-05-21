@@ -16,6 +16,8 @@ self.generateText = function generateText() {
         //alertType = $('.alertType .btn'),
         alertLevel = $('.alertDef .btn'),
         precautions = $('.safety-precautions .btn-group .btn'),
+        possibleDamage = $('.possible-damage .btn-group .btn'),
+        locations = $('.locations .btn-group .btn'),
         thunderstorms = $('.thunderstorms .btn-group .btn'),
         confidence = $('.confidence .btn-group .btn'),
         impact = $('.intensity .btn-group .btn'),
@@ -93,6 +95,15 @@ self.generateText = function generateText() {
         text += '\n';
     }
 
+    // Locations
+    if (locations.length) {
+        text += 'LOCATIONS: \n';
+        for(var i = 0; i < locations.length; i++) {
+            text += locations[i].innerHTML + '\n';
+        }
+        text += '\n'
+    }
+
 
     // Confidence
     if(confidence[0].innerHTML.trim() !== 'NONE') {
@@ -117,6 +128,15 @@ self.generateText = function generateText() {
     // Power Outage
     if(powerOutage[0].innerHTML.trim() !== 'NONE') {
         text += 'POWER OUTAGE IMPACT: ' + powerOutage[0].innerHTML.trim() + '\n\n';
+    }
+
+    // Possible Damage expected
+    if (possibleDamage.length) {
+        text += 'POSSIBLE DAMAGE EXPECTED: \n';
+        for(var i = 0; i < possibleDamage.length; i++) {
+            text += possibleDamage[i].innerHTML + '\n';
+        }
+        text += '\n\n'
     }
 
     // Thunderstorms

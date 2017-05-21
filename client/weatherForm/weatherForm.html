@@ -24,26 +24,33 @@
         <div class="row">
             <div class="col-sm-6">
                 <label>Custom Start</label>
-                <div class="input-group"  id="customStart">
+                <div class="input-group" id="customStart">
                     <span class="input-group-addon">
                         <input type="checkbox" class="checkbox">
                     </span>
-                    <input type="text" class="input form-control" disabled />
+                    <input type="text" class="input form-control" disabled/>
                 </div>
             </div>
             <div class="col-sm-6">
                 <label>Custom Expire</label>
-                <div class="input-group"  id="customEnd">
+                <div class="input-group" id="customEnd">
                     <span class="input-group-addon">
                         <input type="checkbox" class="checkbox">
                     </span>
-                    <input type="text" class="input form-control" disabled />
+                    <input type="text" class="input form-control" disabled/>
                 </div>
             </div>
         </div>
 
-        <!-- Counties -->
-        {{> counties}}
+        <div class="row">
+            <!-- Counties -->
+            <div class="col-sm-6">
+                {{> counties}}
+            </div>
+            <div class="col-sm-6">
+                {{> locations}}
+            </div>
+        </div>
 
         <div class="row">
             <!-- Confidence -->
@@ -76,8 +83,17 @@
             </div>
         </div>
 
-        <!-- Thunderstorms -->
-        {{> thunderstorms}}
+        <div class="row">
+            <div class="col-sm-6">
+                <!-- Possible Damage -->
+                {{> possibleDamage}}
+            </div>
+
+            <div class="col-sm-6">
+                <!-- Thunderstorms -->
+                {{> thunderstorms}}
+            </div>
+        </div>
 
         <!-- Safety Precautions -->
         {{> safetyPrecautions}}

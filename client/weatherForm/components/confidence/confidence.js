@@ -12,9 +12,9 @@ Template.confidence.helpers({
     confidence: function() {
         return [
             'NONE',
-            'LOW',
-            'MEDIUM',
-            'HIGH'
+            'Low',
+            'Medium',
+            'High'
         ];
     }
 });
