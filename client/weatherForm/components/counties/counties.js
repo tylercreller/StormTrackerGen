@@ -33,7 +33,9 @@ Template.counties.helpers({
             'Northeastern',
             'Southwestern',
             'Southeastern',
-            'Central'
+            'Central',
+            'South Central',
+            'North Central',
         ];
     },
 

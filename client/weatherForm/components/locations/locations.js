@@ -13,8 +13,6 @@ Template.locations.onCreated(function mainOnCreated() {
 Template.locations.helpers({
     locations: function () {
         return [
-            'South Central',
-            'North Central',
             'Irondequoit Bay to Sodus Bay',
             'Sodus Bay to Fair Haven',
             'Irondequoit Bay to Fair Haven'

@@ -97,7 +97,7 @@ self.generateText = function generateText() {
 
     // Locations
     if (locations.length) {
-        text += 'LOCATIONS: \n';
+        text += 'AFFECTED MARINE LOCATIONS: \n';
         for(var i = 0; i < locations.length; i++) {
             text += locations[i].innerHTML + '\n';
         }
