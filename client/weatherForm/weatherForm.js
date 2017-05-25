@@ -51,7 +51,7 @@ self.generateText = function generateText() {
 
     if (alertLevel[0].innerHTML !== 'Special Weather Report') {
         // Title text
-        text += 'The Storm Trackers Team has issued an...\nALERT(S):\n';
+        text += 'The Storm Trackers Team has issued a...\n';
 
         // Alert
         text += alertLevel[0].innerHTML;
@@ -65,7 +65,7 @@ self.generateText = function generateText() {
         if (customStartCheck) {
             text += customStartVal;
         } else {
-            text += startDate.toString();
+            text += dateFormat(startDate, "dddd, mmmm dS, yyyy @ h:MM TT");
         }
         text += '\n';
     }
@@ -76,7 +76,7 @@ self.generateText = function generateText() {
         if (customEndCheck) {
             text += customEndVal;
         } else {
-            text += endDate.toString();
+            text += dateFormat(endDate, "dddd, mmmm dS, yyyy @ h:MM TT");
         }
         text += '\n\n';
     }
@@ -196,6 +196,7 @@ Template.weatherForm.onRendered(function() {
     this.$('.startDateTime').datetimepicker();
     this.$('.endDateTime').datetimepicker();
     $(".preview-post").hide();
+    $(".loading").hide();
 });
 
 Template.weatherForm.onCreated(function mainOnCreated(){});
@@ -216,6 +217,7 @@ Template.weatherForm.events({
             postType = 'feed',
             photoUrl = $('.photoUrl').val(),
             text = self.generateText();
+        $(".loading").show();
         HTTP.call(
             'GET',
             'https://graph.facebook.com/v2.8/me?fields=id,name,accounts&access_token=' + fbAccessToken,
@@ -242,6 +244,7 @@ Template.weatherForm.events({
                         params: params
                     },
                     function (err, response) {
+                        $(".loading").hide();
                         if(err) {
                             swal("Oops...", "Something went wrong!", "error");
                         } else {
