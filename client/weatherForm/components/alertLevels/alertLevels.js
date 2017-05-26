@@ -68,21 +68,21 @@ Template.alertLevels.events({
                     'Emergency Alert for Blizzard'
                 ],
                 'Extreme Temp': [
-                    'Potential Alert: Dangerous Wind Chills',
-                    'Action Alert: Dangerous Wind Chills',
-                    'Potential Alert: Dangerous Cold',
-                    'Action Alert: Dangerous Cold',
-                    'Potential Alert: Dangerous Heat',
-                    'Action Alert: Dangerous Heat'
+                    'Potential Alert for Dangerous Wind Chills',
+                    'Action Alert for Dangerous Wind Chills',
+                    'Potential Alert for Dangerous Cold',
+                    'Action Alert for Dangerous Cold',
+                    'Potential Alert for Dangerous Heat',
+                    'Action Alert for Dangerous Heat'
                 ],
                 'Marine': [
-                    'Potential Mariners Alert: Waterspouts',
-                    'Immediate Action Mariners Alert: Waterspouts',
-                    'Potential Mariners Alert: Lakeside Flooding / Erosion',
-                    'Action Mariners Alert: Lakeside Flooding / Erosion',
-                    'Immediate Action Mariners Alert: Strong to Severe T-Storms',
-                    'Potential Mariners Alert: Strong Winds / Wave Action',
-                    'Action Mariners Alert: Strong Winds / Wave Action',
+                    'Potential Mariners Alert for Waterspouts',
+                    'Immediate Action Mariners Alert for Waterspouts',
+                    'Potential Mariners Alert for Lakeside Flooding / Erosion',
+                    'Action Mariners Alert for Lakeside Flooding / Erosion',
+                    'Immediate Action Mariners Alert for Strong to Severe T-Storms',
+                    'Potential Mariners Alert for Strong Winds / Wave Action',
+                    'Action Mariners Alert for Strong Winds / Wave Action',
                 ],
                 'Misc': [
                     'Special Weather Report'

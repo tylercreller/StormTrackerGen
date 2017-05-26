@@ -6,25 +6,43 @@ import './weatherForm.html';
 var self = this,
     dateFormat = require('dateformat');
 
-self.generateText = function generateText() {
+self.processValues = function processValues (values) {
+    var arr = [];
+    if(!!values) {
+        if (values.length) {
+            for (var i = 0; i < values.length; i++) {
+                if (values[i].value) {
+                    arr.push(values[i].value);
+                }
+            }
+        } else {
+            if (values.value) {
+                arr.push(values.value);
+            }
+        }
+    }
+    return arr;
+};
+
+self.generateText = function generateText(instance) {
     var startDate = new Date($(".start-date").val()),
         endDate = new Date($(".end-date").val()),
         customStartCheck = $('#customStart .checkbox').is(':checked'),
         customStartVal = $('#customStart .input')[0].value,
         customEndCheck = $('#customEnd .checkbox').is(':checked'),
         customEndVal = $('#customEnd .input')[0].value,
-        //alertType = $('.alertType .btn'),
-        alertLevel = $('.alertDef .btn'),
-        precautions = $('.safety-precautions .btn-group .btn'),
-        possibleDamage = $('.possible-damage .btn-group .btn'),
-        locations = $('.locations .btn-group .btn'),
-        thunderstorms = $('.thunderstorms .btn-group .btn'),
+        alertLevel = processValues(instance.lastNode.alertLevel),
+        precautions = processValues(instance.lastNode.safetyPrecaution),
+        possibleDamage = processValues(instance.lastNode.possibleDamage),
+        locations = processValues(instance.lastNode.marineLocation),
+        thunderstorms = processValues(instance.lastNode.thunderstorm),
         confidence = $('.confidence .btn-group .btn'),
         impact = $('.intensity .btn-group .btn'),
         visibility = $('.visibility .btn-group .btn'),
         traveling = $('.traveling .btn-group .btn'),
         powerOutage = $('.power-outage .btn-group .btn'),
-        countyGroup = $('.counties .county-group'),
+        countyLocation = processValues(instance.lastNode.countyLocation),
+        county = processValues(instance.lastNode.county),
         forecastersBriefing = $('.forecasters-briefing textarea')[0].value,
         fullName = Meteor.user().profile.name,
         text = '',
@@ -35,13 +53,17 @@ self.generateText = function generateText() {
             'Immediate': 'Immediate Action Level - Hazardous weather is likely to occur shortly. Action is required now! Mainly used for thunderstorms and tornadoes.',
             'Emergency': 'Emergency Level - Extreme to catastrophic weather is expected or has already begun to occur. Action is needed to save life and property!'
         },
-        levelDefSpec = levelDefs[alertLevel[0].innerHTML.split(' ')[0]];
+        levelDefSpec = levelDefs[alertLevel[0]];
 
+    if(!alertLevel[0]){
+        swal("Oops...", "You didn't select an alert type", "error");
+        return;
+    }
 
-    if (alertLevel[0].innerHTML !== 'Special Weather Report') {
+    if (alertLevel[0] !== 'Special Weather Report') {
         text += 'STORM TRACKERS TEAM NY ALERT\n';
     } else {
-        text += alertLevel[0].innerHTML + '\n';
+        text += alertLevel[0] + '\n';
     }
 
     // Dates
@@ -49,16 +71,15 @@ self.generateText = function generateText() {
     var now = new Date();
     text += dateFormat(now, "dddd, mmmm dS, yyyy @ h:MM TT") + '\n\n';
 
-    if (alertLevel[0].innerHTML !== 'Special Weather Report') {
+    if (alertLevel[0] !== 'Special Weather Report') {
         // Title text
-        text += 'The Storm Trackers Team has issued a...\n';
+        text += 'The Storm Trackers Team has issued a...\n\n';
 
         // Alert
-        text += alertLevel[0].innerHTML;
+        text += alertLevel[0];
         text += '\n\n';
     }
 
-    // TODO DATEFORMAT
     if (startDate.toString() !== 'Invalid Date' || customStartCheck) {
         text += 'TIME START: ';
         // Time Start
@@ -82,24 +103,23 @@ self.generateText = function generateText() {
     }
 
     // Counties Affected
-    if (countyGroup.length) {
+    if (county.length && countyLocation.length && county.length === countyLocation.length) {
         text += 'COUNTIES AFFECTED: \n';
-        for(var i = 0; i < countyGroup.length; i++) {
-            var county = $(countyGroup[i]).find('.btn-group .btn');
-            text += county[0].innerHTML;
-            if (county.length === 2) {
-                text += ' ' + county[1].innerHTML;
-            }
+        for(var i = 0; i < county.length; i++) {
+            text += countyLocation[i] + ' ' + county[i];
             text += '\n';
         }
         text += '\n';
+    } else if(county.length !== 0 && countyLocation !== 0) {
+        swal("That doesn't look right...", "Be sure Affected Counties is populated correctly", "error");
+        return;
     }
 
     // Locations
     if (locations.length) {
         text += 'AFFECTED MARINE LOCATIONS: \n';
         for(var i = 0; i < locations.length; i++) {
-            text += locations[i].innerHTML + '\n';
+            text += locations[i] + '\n';
         }
         text += '\n'
     }
@@ -134,7 +154,7 @@ self.generateText = function generateText() {
     if (possibleDamage.length) {
         text += 'POSSIBLE DAMAGE EXPECTED: \n';
         for(var i = 0; i < possibleDamage.length; i++) {
-            text += possibleDamage[i].innerHTML + '\n';
+            text += possibleDamage[i] + '\n';
         }
         text += '\n\n'
     }
@@ -143,7 +163,7 @@ self.generateText = function generateText() {
     if (thunderstorms.length) {
         text += 'THUNDERSTORMS COULD PRODUCE: \n';
         for(var i = 0; i < thunderstorms.length; i++) {
-            text += thunderstorms[i].innerHTML + '\n';
+            text += thunderstorms[i] + '\n';
         }
         text += '\n\n'
     }
@@ -152,7 +172,7 @@ self.generateText = function generateText() {
     if (precautions.length) {
         text += 'SAFETY PRECAUTIONS: \n';
         for(var i = 0; i < precautions.length; i++) {
-            text += precautions[i].innerHTML + '\n';
+            text += precautions[i] + '\n';
         }
         text += '\n\n'
     }
@@ -207,7 +227,7 @@ Template.weatherForm.events({
     'click .copy'(event, instance) {
         window.prompt("Copy to clipboard: Ctrl+C, Enter", $('.preview-post textarea')[0].value);
     },
-    'click .post-to-facebook'(event, instance) {
+    'click .weather-form .post-to-facebook'(event, instance) {
         var user = Meteor.users.findOne(Meteor.userId()),
             fbAccessToken = user.services.facebook.accessToken,
             pageAccessToken,
@@ -216,7 +236,7 @@ Template.weatherForm.events({
             params,
             postType = 'feed',
             photoUrl = $('.photoUrl').val(),
-            text = self.generateText();
+            text = self.generateText(instance);
         $(".loading").show();
         HTTP.call(
             'GET',
@@ -261,10 +281,10 @@ Template.weatherForm.events({
             }
         );
     },
-    'click .generate-sample' (event, instance) {
+    'click .weather-form .generate-sample' (event, instance) {
         $(".preview-post").show();
         // Apply text
-        $(".preview-text").val(self.generateText());
+        $(".preview-text").val(self.generateText(instance));
     },
 
     'click #customStart .checkbox' (event, instance) {
