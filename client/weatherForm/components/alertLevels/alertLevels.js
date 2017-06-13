@@ -83,6 +83,8 @@ Template.alertLevels.events({
                     'Immediate Action Mariners Alert for Strong to Severe T-Storms',
                     'Potential Mariners Alert for Strong Winds / Wave Action',
                     'Action Mariners Alert for Strong Winds / Wave Action',
+                    'Potential Alert for Waterfront Flooding',
+                    'Action Alert for Waterfront Flooding'
                 ],
                 'Misc': [
                     'Special Weather Report'
