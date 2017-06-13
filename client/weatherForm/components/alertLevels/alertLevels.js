@@ -48,7 +48,9 @@ Template.alertLevels.events({
                     'Potential Alert for General Flooding',
                     'Action Alert for General Flooding',
                     'Potential Alert for Rapid Flooding',
-                    'Immediate Action Alert for Rapid Flooding'
+                    'Immediate Action Alert for Rapid Flooding',
+                    'Potential Alert for Waterfront Flooding',
+                    'Action Alert for Waterfront Flooding'
                 ],
                 'T-Storm': [
                     'Potential Alert for Strong to Severe T-Storms',
@@ -82,9 +84,7 @@ Template.alertLevels.events({
                     'Action Mariners Alert for Lakeside Flooding / Erosion',
                     'Immediate Action Mariners Alert for Strong to Severe T-Storms',
                     'Potential Mariners Alert for Strong Winds / Wave Action',
-                    'Action Mariners Alert for Strong Winds / Wave Action',
-                    'Potential Alert for Waterfront Flooding',
-                    'Action Alert for Waterfront Flooding'
+                    'Action Mariners Alert for Strong Winds / Wave Action'
                 ],
                 'Misc': [
                     'Special Weather Report'
