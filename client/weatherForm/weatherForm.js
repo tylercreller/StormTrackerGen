@@ -25,6 +25,8 @@ self.processValues = function processValues (values) {
 };
 
 self.generateText = function generateText(instance) {
+    self.validationErrors = false;
+
     var startDate = new Date($(".start-date").val()),
         endDate = new Date($(".end-date").val()),
         customStartCheck = $('#customStart .checkbox').is(':checked'),
@@ -56,6 +58,7 @@ self.generateText = function generateText(instance) {
         levelDefSpec = levelDefs[alertLevel[0]];
 
     if(!alertLevel[0]){
+        self.validationErrors = true;
         swal("Oops...", "You didn't select an alert type", "error");
         return;
     }
@@ -111,6 +114,7 @@ self.generateText = function generateText(instance) {
         }
         text += '\n';
     } else if(county.length !== 0 && countyLocation !== 0) {
+        self.validationErrors = true;
         swal("That doesn't look right...", "Be sure Affected Counties is populated correctly", "error");
         return;
     }
@@ -236,6 +240,7 @@ Template.weatherForm.events({
             params,
             postType = 'feed',
             photoUrl = $('.photoUrl').val(),
+            postDestination,
             text = self.generateText(instance);
         $(".loading").show();
         HTTP.call(
@@ -243,41 +248,51 @@ Template.weatherForm.events({
             'https://graph.facebook.com/v2.8/me?fields=id,name,accounts&access_token=' + fbAccessToken,
             {/* options */},
             function (err, response) {
-                page = _.find(response.data.accounts.data, function (o) {return o.id === "1742942359353590"});
-                pageAccessToken = page.access_token;
-                pageId = page.id;
-
-                params = {
-                    "access_token": pageAccessToken,
-                    "message": text
-                };
-
-                if (photoUrl) {
-                    postType = 'photos';
-                    params.url = photoUrl;
-                }
-
-                HTTP.call(
-                    'POST',
-                    'https://graph.facebook.com/'+ pageId +'/' + postType,
-                    {
-                        params: params
-                    },
-                    function (err, response) {
-                        $(".loading").hide();
-                        if(err) {
-                            swal("Oops...", "Something went wrong!", "error");
-                        } else {
-                            var id = response.data.post_id ? response.data.post_id : response.data.id,
-                                arr = id.split('_'),
-                                link = "https://www.facebook.com/" + arr[0] + "/posts/" + arr[1];
-                            swal("Success!",
-                                "Your alert has been posted\n",
-                                "success");
-                            $('.sweet-alert p').append('<a href=\"' + link + '\" target="_blank">See post</a>');
-                        }
+                if (err || self.validationErrors) {
+                    swal("Oops...", "Something went wrong!", "error");
+                    $(".loading").hide();
+                } else {
+                    if (window.location.hostname === 'localhost') {
+                        postDestination = '1742942359353590'; //localhost test page
+                    } else {
+                        postDestination = '249878011776436'; // Storm Trackers
                     }
-                );
+                    page = _.find(response.data.accounts.data, function (o) {return o.id === postDestination});
+                    pageAccessToken = page.access_token;
+                    pageId = page.id;
+
+                    params = {
+                        "access_token": pageAccessToken,
+                        "message": text
+                    };
+
+                    if (photoUrl) {
+                        postType = 'photos';
+                        params.url = photoUrl;
+                    }
+
+                    HTTP.call(
+                        'POST',
+                        'https://graph.facebook.com/'+ pageId +'/' + postType,
+                        {
+                            params: params
+                        },
+                        function (err, response) {
+                            $(".loading").hide();
+                            if(err) {
+                                swal("Oops...", "Something went wrong!", "error");
+                            } else {
+                                var id = response.data.post_id ? response.data.post_id : response.data.id,
+                                    arr = id.split('_'),
+                                    link = "https://www.facebook.com/" + arr[0] + "/posts/" + arr[1];
+                                swal("Success!",
+                                    "Your alert has been posted\n",
+                                    "success");
+                                $('.sweet-alert p').append('<a href=\"' + link + '\" target="_blank">See post</a>');
+                            }
+                        }
+                    );
+                }
             }
         );
     },
