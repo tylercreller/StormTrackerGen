@@ -250,9 +250,15 @@ Template.weatherForm.events({
             'https://graph.facebook.com/v2.8/me?fields=id,name,accounts&access_token=' + fbAccessToken,
             {/* options */},
             function (err, response) {
-                if (err || self.validationErrors) {
-                    swal("Oops...", "Something went wrong!", "error");
+                if (self.validationErrors) {
+                    swal("Oops...", "Make sure you populated all necessary fields!", "error");
                     $(".loading").hide();
+                    return;
+                }
+                else if (err) {
+                    swal("Oops...", "Something went wrong on Facebook's end!", "error");
+                    $(".loading").hide();
+                    return;
                 } else {
                     page = _.find(response.data.accounts.data, function (o) {return o.id === self.postDestination});
 
