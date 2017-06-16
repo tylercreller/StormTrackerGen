@@ -124,7 +124,25 @@
                     <button class="copy btn btn-default" type="button">Copy to Clipboard</button>
                 </div>
             </div>
-            <button class="post-to-facebook btn btn-default" type="button">Post to Facebook</button>
+            <div class="row">
+                <div class="row">
+                    <label for="pageToPost">Issue Alert to...</label>
+                </div>
+                <div class="col-sm-6">
+                    <div class="dropdown page-to-post">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="pageToPost" data-toggle="dropdown" name="pageToPost">
+                            Storm Trackers Team NY
+                        </button>
+                        <ul class="dropdown-menu alertType-menu" aria-labelledby="dropdownMenuAlert">
+                                <li><a href="#" class="page" value="249878011776436">Storm Trackers Team NY</a></li>
+                                <li><a href="#" class="page" value="1742942359353590">Test Page</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <button class="post-to-facebook btn btn-default" type="button">Post to Facebook</button>
+                </div>
+            </div>
         </div>
     </form>
 </template>

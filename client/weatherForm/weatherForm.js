@@ -6,6 +6,9 @@ import './weatherForm.html';
 var self = this,
     dateFormat = require('dateformat');
 
+self.postDestination = '249878011776436';
+
+
 self.processValues = function processValues (values) {
     var arr = [];
     if(!!values) {
@@ -240,7 +243,6 @@ Template.weatherForm.events({
             params,
             postType = 'feed',
             photoUrl = $('.photoUrl').val(),
-            postDestination,
             text = self.generateText(instance);
         $(".loading").show();
         HTTP.call(
@@ -252,12 +254,13 @@ Template.weatherForm.events({
                     swal("Oops...", "Something went wrong!", "error");
                     $(".loading").hide();
                 } else {
-                    if (window.location.hostname === 'localhost') {
-                        postDestination = '1742942359353590'; //localhost test page
-                    } else {
-                        postDestination = '249878011776436'; // Storm Trackers
+                    page = _.find(response.data.accounts.data, function (o) {return o.id === self.postDestination});
+
+                    if (!page) {
+                        swal("Oops...", "Make sure you have permissions to post to this page!", "error");
+                        $(".loading").hide();
+                        return;
                     }
-                    page = _.find(response.data.accounts.data, function (o) {return o.id === postDestination});
                     pageAccessToken = page.access_token;
                     pageId = page.id;
 
@@ -322,5 +325,17 @@ Template.weatherForm.events({
             ele.removeAttr('disabled');
             $(event.target.parentElement.nextElementSibling).attr("disabled", true).val("");
         }
-    }
+    },
+
+    'click .dropdown-menu li a.page' (event, instance){
+        event.preventDefault();
+        if(event.target.parentElement.parentElement.previousElementSibling.previousElementSibling) {
+            $(event.target.parentElement.parentElement.previousElementSibling.previousElementSibling).text(event.target.innerHTML);
+            $(event.target.parentElement.parentElement.previousElementSibling.previousElementSibling).val(event.target.innerHTML);
+        } else {
+            $(event.target.parentElement.parentElement.previousElementSibling).text(event.target.innerHTML);
+            $(event.target.parentElement.parentElement.previousElementSibling).val(event.target.innerHTML);
+        }
+        self.postDestination = event.target.attributes.value.value;
+    },
 });
