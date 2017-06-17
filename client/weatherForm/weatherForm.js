@@ -4,7 +4,22 @@ import {HTTP} from 'meteor/http';
 import './weatherForm.html';
 
 var self = this,
-    dateFormat = require('dateformat');
+    dateFormat = require('dateformat'),
+    requiredClipboard = require('clipboard'),
+    clipboard = new requiredClipboard('.copy');
+
+// Clipboard Setup
+clipboard.on('success', function(e) {
+    self.snackbar.textContent="Copied Successfully!";
+    self.snackbar.className = "show";
+    setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+});
+
+clipboard.on('error', function(e) {
+    self.snackbar.textContent="Press Ctrl+C to copy to clipboard";
+    self.snackbar.className = "show";
+    setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+});
 
 self.postDestination = '249878011776436';
 
@@ -220,6 +235,7 @@ self.generateText = function generateText(instance) {
 };
 
 Template.weatherForm.onRendered(function() {
+    self.snackbar = document.getElementById("snackbar");
     this.$('.startDateTime').datetimepicker();
     this.$('.endDateTime').datetimepicker();
     $(".preview-post").hide();
@@ -231,9 +247,6 @@ Template.weatherForm.onCreated(function mainOnCreated(){});
 Template.weatherForm.helpers({});
 
 Template.weatherForm.events({
-    'click .copy'(event, instance) {
-        window.prompt("Copy to clipboard: Ctrl+C, Enter", $('.preview-post textarea')[0].value);
-    },
     'click .weather-form .post-to-facebook'(event, instance) {
         var user = Meteor.users.findOne(Meteor.userId()),
             fbAccessToken = user.services.facebook.accessToken,
@@ -307,7 +320,6 @@ Template.weatherForm.events({
     },
     'click .weather-form .generate-sample' (event, instance) {
         $(".preview-post").show();
-        // Apply text
         $(".preview-text").val(self.generateText(instance));
     },
 

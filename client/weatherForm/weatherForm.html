@@ -1,5 +1,6 @@
 <template name="weatherForm">
     <div class="loading">Loading&#8230;</div>
+    <div id="snackbar"></div>
     <form class="weather-form">
 
         {{> alertLevels}}
@@ -107,7 +108,7 @@
 
         <div class="preview-post">
             <label for="previewPost">Preview Post</label>
-            <textarea class="form-control preview-text" rows="5" name="previewPost" disabled readonly></textarea>
+            <textarea class="form-control preview-text" rows="5" name="previewPost" readonly></textarea>
         </div>
 
         <div class="photo-url-container">
@@ -121,7 +122,9 @@
                     <button class="generate-sample btn btn-default" type="button">Generate Preview</button>
                 </div>
                 <div class="col-sm-6">
-                    <button class="copy btn btn-default" type="button">Copy to Clipboard</button>
+                    <button class="copy btn btn-default" type="button" data-clipboard-target=".preview-post textarea">
+                        Copy to Clipboard
+                    </button>
                 </div>
             </div>
             <div class="row">
