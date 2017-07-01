@@ -5,10 +5,10 @@
 
 <body>
 {{#if currentUser}}
+    {{> sidenav}}
     <div class="page-header">
         <h1>Storm Tracker Center</h1>
         <h4>{{> loginButtons}}</h4>
-        <h4 class="submit-bug"><a href="https://goo.gl/forms/LGRB8305OlDzbJ7P2" target="_blank"><span class="glyphicon glyphicon-alert"></span> Submit Bug</a></h4>
     </div>
     {{> weatherForm}}
 {{else}}
