@@ -13,9 +13,13 @@ Template.locations.onCreated(function mainOnCreated() {
 Template.locations.helpers({
     locations: function () {
         return [
-            'Irondequoit Bay to Sodus Bay',
-            'Sodus Bay to Fair Haven',
-            'Irondequoit Bay to Fair Haven'
+            'Irondequoit Bay',
+            'Ontario on the Lake',
+            'Sodus Bay',
+            'Pultneyville',
+            'Port Bay',
+            'Cayuga/Oswego County Line',
+            'Fair Haven'
         ];
     },
 
@@ -39,7 +43,7 @@ Template.locations.events({
 
     'click .dropdown-menu li a' (event, instance){
         event.preventDefault();
-        if (event.target.parentElement.parentElement.previousElementSibling.previousElementSibling) {
+        if(event.target.parentElement.parentElement.previousElementSibling.previousElementSibling) {
             $(event.target.parentElement.parentElement.previousElementSibling.previousElementSibling).text(event.target.innerHTML);
             $(event.target.parentElement.parentElement.previousElementSibling.previousElementSibling).val(event.target.innerHTML);
         } else {

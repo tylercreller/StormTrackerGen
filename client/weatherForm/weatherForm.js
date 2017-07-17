@@ -54,7 +54,8 @@ self.generateText = function generateText(instance) {
         alertLevel = processValues(instance.lastNode.alertLevel),
         precautions = processValues(instance.lastNode.safetyPrecaution),
         possibleDamage = processValues(instance.lastNode.possibleDamage),
-        locations = processValues(instance.lastNode.marineLocation),
+        marineLocationOrigin = processValues(instance.lastNode.marineLocationOrigin),
+        marineLocationDestination = processValues(instance.lastNode.marineLocationDestination),
         thunderstorms = processValues(instance.lastNode.thunderstorm),
         confidence = $('.confidence .btn-group .btn'),
         impact = $('.intensity .btn-group .btn'),
@@ -138,13 +139,20 @@ self.generateText = function generateText(instance) {
     }
 
     // Locations
-    if (locations.length) {
-        text += 'AFFECTED MARINE LOCATIONS: \n';
-        for(var i = 0; i < locations.length; i++) {
-            text += locations[i] + '\n';
+    if (marineLocationOrigin.length === marineLocationDestination.length) {
+        if (marineLocationOrigin.length && marineLocationDestination.length) {
+            text += 'AFFECTED MARINE LOCATIONS: \n';
+            for(var i = 0; i < marineLocationOrigin.length; i++) {
+                text += marineLocationOrigin[i] + ' to ' + marineLocationDestination[i] + '\n';
+            }
+            text += '\n'
         }
-        text += '\n'
+    } else {
+        self.validationErrors = true;
+        swal("That doesn't look right...", "Be sure Marine Locations are populated correctly", "error");
+        return;
     }
+
 
 
     // Confidence

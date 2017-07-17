@@ -5,11 +5,25 @@
             <div class="locations">
                 {{#each loopCount numOfLocations}}
                     <div class="locations-group">
-                        <div class="btn-group add-field">
+                        <div class="btn-group select-field">
                             <button type="button"
                                     class="btn btn-default dropdown-toggle"
                                     data-toggle="dropdown"
-                                    name="marineLocation">
+                                    name="marineLocationOrigin">
+                                Choose One <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                {{#each locations}}
+                                    <li><a href="#" value="{{this}}">{{this}}</a></li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                        <span class="info-text">to</span>
+                        <div class="btn-group select-field">
+                            <button type="button"
+                                    class="btn btn-default dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    name="marineLocationDestination">
                                 Choose One <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
