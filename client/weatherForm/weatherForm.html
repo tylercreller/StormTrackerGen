@@ -1,6 +1,13 @@
 <template name="weatherForm">
     <div class="loading">Loading&#8230;</div>
     <div id="snackbar"></div>
+
+    <ul class="nav nav-pills links-of-interest">
+        <li role="presentation"><a href="https://www.remind.com/log_in" target="_blank"><span class="glyphicon glyphicon-phone"></span> Remind101</a></li>
+        <li role="presentation"><a href="https://goo.gl/forms/LGRB8305OlDzbJ7P2" target="_blank"><span class="glyphicon glyphicon-alert"></span> Submit Bug</a></li>
+        <li role="presentation"><a href="https://docs.google.com/document/d/1eil7nBCQKGJbni-5T7zmawxDb7ZWio12OLPB9o9jekc/edit?usp=sharing" target="_blank"><span class="glyphicon glyphicon-list-alt"></span> Changelog</a></li>
+    </ul>
+
     <form class="weather-form">
 
         {{> alertLevels}}

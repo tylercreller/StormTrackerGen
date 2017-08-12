@@ -1,4 +1,5 @@
 .weather-form {
+  margin-top: 10px;
   position: relative;
   top: 70%;
   left: 50%;
@@ -19,9 +20,33 @@
   }
 }
 
+.nav-pills.links-of-interest {
+  margin: auto;
+  position: relative;
+  width: 60%;
+  @media (max-width:800px)  {
+    /* smartphones, Android phones, landscape iPhone */
+    width: 100%;
+  }
+  li {
+    text-align: center;
+    width: 33%;
+    padding: 0 5px 0 5px;
+    >a {
+      background-color: #596595;
+      color: white;
+      &:hover {
+        background-color:#7580ac;
+      }
+    }
+  }
+}
+
+
 .forecasters-briefing {
   margin: 10px 0 10px 0;
   textarea {
+    height: 150px;
     resize: vertical;
   }
 }
@@ -29,6 +54,7 @@
 .preview-post {
   margin: 10px 0 10px 0;
   textarea {
+    height: 300px;
     resize: vertical;
   }
 }
