@@ -2,7 +2,9 @@ import {Template} from 'meteor/templating';
 
 import './welcome.html';
 
-Template.welcome.onCreated(function mainOnCreated() {});
+Template.welcome.onCreated(function mainOnCreated() {
+    this.alertsHandle = Meteor.subscribe('alerts');
+});
 
 Template.welcome.helpers({});
 

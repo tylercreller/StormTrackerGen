@@ -1,0 +1,59 @@
+<template name="alertBot">
+    <div class="page-header">
+        <h1>Storm Tracker Center</h1>
+        <h4>Live Alerts <div class="live-icon">⏺</div></h4>
+    </div>
+    <div class="county-choices">
+        <label class="checkbox-inline"><input class="all-checkbox" type="checkbox" checked="checked" value="All">All</label>
+        <label class="checkbox-inline"><input type="checkbox" checked="checked" value="Cayuga">Cayuga</label>
+        <label class="checkbox-inline"><input type="checkbox" checked="checked" value="Lakeshore">Lakeshore</label>
+        <label class="checkbox-inline"><input type="checkbox" checked="checked" value="Monroe">Monroe</label>
+        <label class="checkbox-inline"><input type="checkbox" checked="checked" value="Ontario">Ontario</label>
+        <label class="checkbox-inline"><input type="checkbox" checked="checked" value="Seneca">Seneca</label>
+        <label class="checkbox-inline"><input type="checkbox" checked="checked" value="Wayne">Wayne</label>
+        <label class="checkbox-inline"><input type="checkbox" checked="checked" value="Yates">Yates</label>
+    </div>
+    <table class="table live-table">
+        <thead>
+        <tr>
+            <th>Issued</th>
+            <th>Location(s)</th>
+            <th>Alert Type</th>
+            <th>Alert Link</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each issuedAlerts}}
+            <tr class="{{toLower alertLevel}}">
+                <td class="table-date">{{dateFormat createdAt}}</td>
+                <td>{{formatLocations locations}}</td>
+                <td>{{alertType}}</td>
+                <td class="table-see-alert"><button type="button" class="btn btn-default see-alert-button">See Alert</button></td>
+            </tr>
+        {{/each}}
+        <!--<tr class="danger">-->
+        <!--<td>Danger</td>-->
+        <!--<td>Moe</td>-->
+        <!--<td>mary@example.com</td>-->
+        <!--</tr>-->
+        <!--<tr class="info">-->
+        <!--<td>Info</td>-->
+        <!--<td>Dooley</td>-->
+        <!--<td>july@example.com</td>-->
+        <!--</tr>-->
+        <!--<tr class="warning">-->
+        <!--<td>Warning</td>-->
+        <!--<td>Refs</td>-->
+        <!--<td>bo@example.com</td>-->
+        <!--</tr>-->
+        <!--<tr class="active">-->
+        <!--<td>Active</td>-->
+        <!--<td>Activeson</td>-->
+        <!--<td>act@example.com</td>-->
+        <!--</tr>-->
+        </tbody>
+        {{#unless issuedAlerts}}
+            <h3>There are currently no alerts issued for your selected area.</h3>
+        {{/unless}}
+    </table>
+</template>

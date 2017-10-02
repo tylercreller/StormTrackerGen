@@ -31,3 +31,4 @@ facebook-config-ui@1.0.0
 erasaur:meteor-lodash
 kevohagan:sweetalert
 session
+iron:router

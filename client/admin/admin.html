@@ -1,0 +1,13 @@
+<template name="admin">
+    <div class="has-background">
+        {{#if currentUser}}
+            <div class="page-header">
+                <h1>Storm Tracker Center</h1>
+                <h4>{{> loginButtons}}</h4>
+            </div>
+            {{> weatherForm}}
+        {{else}}
+            {{> welcome}}
+        {{/if}}
+    </div>
+</template>

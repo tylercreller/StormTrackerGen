@@ -9,24 +9,28 @@ var self = this,
     clipboard = new requiredClipboard('.copy');
 
 // Clipboard Setup
-clipboard.on('success', function(e) {
-    self.snackbar.textContent="Copied Successfully!";
+clipboard.on('success', function (e) {
+    self.snackbar.textContent = "Copied Successfully!";
     self.snackbar.className = "show";
-    setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+    setTimeout(function () {
+        snackbar.className = snackbar.className.replace("show", "");
+    }, 3000);
 });
 
-clipboard.on('error', function(e) {
-    self.snackbar.textContent="Press Ctrl+C to copy to clipboard";
+clipboard.on('error', function (e) {
+    self.snackbar.textContent = "Press Ctrl+C to copy to clipboard";
     self.snackbar.className = "show";
-    setTimeout(function(){ snackbar.className = snackbar.className.replace("show", ""); }, 3000);
+    setTimeout(function () {
+        snackbar.className = snackbar.className.replace("show", "");
+    }, 3000);
 });
 
 self.postDestination = '249878011776436';
 
 
-self.processValues = function processValues (values) {
+self.processValues = function processValues(values) {
     var arr = [];
-    if(!!values) {
+    if (!!values) {
         if (values.length) {
             for (var i = 0; i < values.length; i++) {
                 if (values[i].value) {
@@ -74,9 +78,9 @@ self.generateText = function generateText(instance) {
             'Immediate': 'Immediate Action Level - Hazardous weather is likely to occur shortly. Action is required now! Mainly used for thunderstorms and tornadoes.',
             'Emergency': 'Emergency Level - Extreme to catastrophic weather is expected or has already begun to occur. Action is needed to save life and property!'
         },
-        levelDefSpec = levelDefs[alertLevel[0]];
+        levelDefSpec = levelDefs[alertLevel[0].split(' ')[0]];
 
-    if(!alertLevel[0]){
+    if (!alertLevel[0]) {
         self.validationErrors = true;
         swal("Oops...", "You didn't select an alert type", "error");
         return;
@@ -113,7 +117,7 @@ self.generateText = function generateText(instance) {
         text += '\n';
     }
 
-    if (endDate.toString() !== 'Invalid Date'  || customEndCheck) {
+    if (endDate.toString() !== 'Invalid Date' || customEndCheck) {
         text += 'TIME END: ';
         // Time expires
         if (customEndCheck) {
@@ -127,12 +131,12 @@ self.generateText = function generateText(instance) {
     // Counties Affected
     if (county.length && countyLocation.length && county.length === countyLocation.length) {
         text += 'COUNTIES AFFECTED: \n';
-        for(var i = 0; i < county.length; i++) {
+        for (var i = 0; i < county.length; i++) {
             text += countyLocation[i] + ' ' + county[i];
             text += '\n';
         }
         text += '\n';
-    } else if(county.length !== 0 && countyLocation !== 0) {
+    } else if (county.length !== 0 && countyLocation !== 0) {
         self.validationErrors = true;
         swal("That doesn't look right...", "Be sure Affected Counties is populated correctly", "error");
         return;
@@ -142,7 +146,7 @@ self.generateText = function generateText(instance) {
     if (marineLocationOrigin.length === marineLocationDestination.length) {
         if (marineLocationOrigin.length && marineLocationDestination.length) {
             text += 'AFFECTED MARINE LOCATIONS: \n';
-            for(var i = 0; i < marineLocationOrigin.length; i++) {
+            for (var i = 0; i < marineLocationOrigin.length; i++) {
                 text += marineLocationOrigin[i] + ' to ' + marineLocationDestination[i] + '\n';
             }
             text += '\n'
@@ -154,36 +158,35 @@ self.generateText = function generateText(instance) {
     }
 
 
-
     // Confidence
-    if(confidence[0].innerHTML.trim() !== 'NONE') {
+    if (confidence[0].innerHTML.trim() !== 'NONE') {
         text += 'FORECASTER\'S CONFIDENCE LEVEL: ' + confidence[0].innerHTML.trim() + '\n\n';
     }
 
     // Impact
-    if(impact[0].innerHTML.trim() !== 'NONE') {
+    if (impact[0].innerHTML.trim() !== 'NONE') {
         text += 'OVERALL IMPACT INTENSITY SCALE: ' + impact[0].innerHTML.trim() + '\n\n';
     }
 
     // Visibility
-    if(visibility[0].innerHTML.trim() !== 'NONE') {
+    if (visibility[0].innerHTML.trim() !== 'NONE') {
         text += 'VISIBILITY IMPACT: ' + visibility[0].innerHTML.trim() + '\n\n';
     }
 
     // Traveling
-    if(traveling[0].innerHTML.trim() !== 'NONE') {
+    if (traveling[0].innerHTML.trim() !== 'NONE') {
         text += 'TRAVELING IMPACT: ' + traveling[0].innerHTML.trim() + '\n\n';
     }
 
     // Power Outage
-    if(powerOutage[0].innerHTML.trim() !== 'NONE') {
+    if (powerOutage[0].innerHTML.trim() !== 'NONE') {
         text += 'POWER OUTAGE IMPACT: ' + powerOutage[0].innerHTML.trim() + '\n\n';
     }
 
     // Possible Damage expected
     if (possibleDamage.length) {
         text += 'POSSIBLE DAMAGE EXPECTED: \n';
-        for(var i = 0; i < possibleDamage.length; i++) {
+        for (var i = 0; i < possibleDamage.length; i++) {
             text += possibleDamage[i] + '\n';
         }
         text += '\n\n'
@@ -192,19 +195,19 @@ self.generateText = function generateText(instance) {
     // Thunderstorms
     if (thunderstorms.length) {
         text += 'THUNDERSTORMS COULD PRODUCE: \n';
-        for(var i = 0; i < thunderstorms.length; i++) {
+        for (var i = 0; i < thunderstorms.length; i++) {
             text += thunderstorms[i] + '\n';
         }
-        text += '\n\n'
+        text += '\n'
     }
 
     // Precautions
     if (precautions.length) {
         text += 'SAFETY PRECAUTIONS: \n';
-        for(var i = 0; i < precautions.length; i++) {
+        for (var i = 0; i < precautions.length; i++) {
             text += precautions[i] + '\n';
         }
-        text += '\n\n'
+        text += '\n'
     }
 
     // Custom Text
@@ -242,7 +245,7 @@ self.generateText = function generateText(instance) {
     return text;
 };
 
-Template.weatherForm.onRendered(function() {
+Template.weatherForm.onRendered(function () {
     self.snackbar = document.getElementById("snackbar");
     this.$('.startDateTime').datetimepicker();
     this.$('.endDateTime').datetimepicker();
@@ -250,7 +253,8 @@ Template.weatherForm.onRendered(function() {
     $(".loading").hide();
 });
 
-Template.weatherForm.onCreated(function mainOnCreated(){});
+Template.weatherForm.onCreated(function mainOnCreated() {
+});
 
 Template.weatherForm.helpers({});
 
@@ -281,7 +285,9 @@ Template.weatherForm.events({
                     $(".loading").hide();
                     return;
                 } else {
-                    page = _.find(response.data.accounts.data, function (o) {return o.id === self.postDestination});
+                    page = _.find(response.data.accounts.data, function (o) {
+                        return o.id === self.postDestination
+                    });
 
                     if (!page) {
                         swal("Oops...", "Make sure you have permissions to post to this page!", "error");
@@ -303,13 +309,13 @@ Template.weatherForm.events({
 
                     HTTP.call(
                         'POST',
-                        'https://graph.facebook.com/'+ pageId +'/' + postType,
+                        'https://graph.facebook.com/' + pageId + '/' + postType,
                         {
                             params: params
                         },
                         function (err, response) {
                             $(".loading").hide();
-                            if(err) {
+                            if (err) {
                                 swal("Oops...", "Something went wrong!", "error");
                             } else {
                                 var id = response.data.post_id ? response.data.post_id : response.data.id,
@@ -355,7 +361,7 @@ Template.weatherForm.events({
 
     'click .dropdown-menu li a.page' (event, instance){
         event.preventDefault();
-        if(event.target.parentElement.parentElement.previousElementSibling.previousElementSibling) {
+        if (event.target.parentElement.parentElement.previousElementSibling.previousElementSibling) {
             $(event.target.parentElement.parentElement.previousElementSibling.previousElementSibling).text(event.target.innerHTML);
             $(event.target.parentElement.parentElement.previousElementSibling.previousElementSibling).val(event.target.innerHTML);
         } else {
@@ -363,5 +369,29 @@ Template.weatherForm.events({
             $(event.target.parentElement.parentElement.previousElementSibling).val(event.target.innerHTML);
         }
         self.postDestination = event.target.attributes.value.value;
+    },
+
+    'click .publish-storm-trackers-team-ny-live' (event, instance){
+        event.preventDefault();
+        var counties = processValues(instance.lastNode.county),
+            alertType = processValues(instance.lastNode.alertLevel),
+            alertMessage = self.generateText(instance);
+
+        if(alertMessage) {
+            Alerts.insert({
+                alertMessage: alertMessage,
+                locations: _.uniq(_.sortBy(counties, function(county){return county}), true),
+                alertType: alertType[0],
+                alertLevel: alertType[0].split(' ')[0],
+                user: Meteor.user().profile.name,
+                createdAt: new Date()
+            });
+
+            self.snackbar.textContent = "Published Successfully!";
+            self.snackbar.className = "show";
+            setTimeout(function () {
+                snackbar.className = snackbar.className.replace("show", "");
+            }, 3000);
+        }
     },
 });

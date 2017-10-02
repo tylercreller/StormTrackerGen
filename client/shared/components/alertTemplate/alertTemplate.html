@@ -1,0 +1,10 @@
+<template name="alertTemplate">
+    <div class="plain-alert-container">
+        <a href="{{pathFor route="userView"}}">←Back</a>
+        {{#if alertMessage}}
+            <p class="preserve-whitespace">{{alertMessage}}</p>
+        {{else}}
+            <p>This alert may have changed, please use your back button.</p>
+        {{/if}}
+    </div>
+</template>
