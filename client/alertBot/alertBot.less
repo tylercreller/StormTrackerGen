@@ -9,6 +9,30 @@
   min-width: 50%;
   max-width: 70%;
   margin: auto;
+  @media screen and (max-width: 800px) {
+    border-collapse: separate;
+    border-spacing: 0 1em;
+    text-align: center;
+    tbody {}
+    thead {display: none;}
+    tr {
+      box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, .5);
+      border-radius: 10px;
+    }
+    td,th {
+      &:first-of-type {
+        border-radius: 10px 10px 0 0;
+      }
+      &:last-of-type {
+        border-radius: 0 0 10px 10px;
+      }
+      display: block;
+      border-top: none!important;
+    }
+    .table-see-alert {
+      width: 100%!important;
+    }
+  }
   .immediate {
     td {
       background-color: #f1c40f;
@@ -39,8 +63,7 @@
 }
 
 .county-choices {
-  max-width: 80%;
   margin: 20px auto auto auto;
-  justify-content: center;
-  display: flex;
+  text-align: left;
+  width: 50%;
 }
