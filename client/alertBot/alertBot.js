@@ -61,7 +61,9 @@ Template.alertBot.events({
         $('.all-checkbox').prop('checked', (countyChoices.length - 1) === locationsToFilter.length);
         self.alertsHandle.stop();
         if(locationsToFilter.length) {
-            self.alertsHandle = Meteor.subscribe('alerts', {locations: {$in: locationsToFilter}}, {sort: {"createdAt": -1}, limit: 20});
+            self.alertsHandle = Meteor.subscribe('alerts', {$or: [{locations: {$in: locationsToFilter}}, {locations: []}]}, {sort: {"createdAt": -1}, limit: 20});
+        } else {
+            self.alertsHandle = Meteor.subscribe('alerts', {locations: []}, {sort: {"createdAt": -1}, limit: 20});
         }
     },
     'click .see-alert-button': function() {
