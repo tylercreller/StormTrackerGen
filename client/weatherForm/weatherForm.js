@@ -86,7 +86,8 @@ self.generateText = function generateText(instance) {
         return;
     }
 
-    if (alertLevel[0] !== 'Special Weather Report') {
+    if (alertLevel[0] !== 'Special Weather Report' ||
+        alertLevel[0] !== 'Special Alert(s) Update Report / Special Damage Report') {
         text += 'STORM TRACKERS TEAM NY ALERT\n';
     } else {
         text += alertLevel[0] + '\n';
@@ -97,7 +98,8 @@ self.generateText = function generateText(instance) {
     var now = new Date();
     text += dateFormat(now, "dddd, mmmm dS, yyyy @ h:MM TT") + '\n\n';
 
-    if (alertLevel[0] !== 'Special Weather Report') {
+    if (alertLevel[0] !== 'Special Weather Report' ||
+        alertLevel[0] !== 'Special Alert(s) Update Report / Special Damage Report') {
         // Title text
         text += 'The Storm Trackers Team has issued a...\n\n';
 
