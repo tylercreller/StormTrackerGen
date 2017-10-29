@@ -87,7 +87,8 @@ Template.alertLevels.events({
                     'Action Mariners Alert for Strong Winds / Wave Action'
                 ],
                 'Misc': [
-                    'Special Weather Report'
+                    'Special Weather Report',
+                    'Special Alert(s) Update Report / Special Damage Report'
                 ]
             },
             alertDefList = alertDefsObj[alertType];
