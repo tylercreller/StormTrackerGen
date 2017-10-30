@@ -56,6 +56,7 @@ self.generateText = function generateText(instance) {
         customEndCheck = $('#customEnd .checkbox').is(':checked'),
         customEndVal = $('#customEnd .input')[0].value,
         alertLevel = processValues(instance.lastNode.alertLevel),
+        alertType = processValues(instance.lastNode.alertType),
         precautions = processValues(instance.lastNode.safetyPrecaution),
         possibleDamage = processValues(instance.lastNode.possibleDamage),
         marineLocationOrigin = processValues(instance.lastNode.marineLocationOrigin),
@@ -86,8 +87,7 @@ self.generateText = function generateText(instance) {
         return;
     }
 
-    if (alertLevel[0] !== 'Special Weather Report' ||
-        alertLevel[0] !== 'Special Alert(s) Update Report / Special Damage Report') {
+    if (alertType[0] === 'Misc') {
         text += 'STORM TRACKERS TEAM NY ALERT\n';
     } else {
         text += alertLevel[0] + '\n';
@@ -98,8 +98,7 @@ self.generateText = function generateText(instance) {
     var now = new Date();
     text += dateFormat(now, "dddd, mmmm dS, yyyy @ h:MM TT") + '\n\n';
 
-    if (alertLevel[0] !== 'Special Weather Report' ||
-        alertLevel[0] !== 'Special Alert(s) Update Report / Special Damage Report') {
+    if (alertType[0] === 'Misc') {
         // Title text
         text += 'The Storm Trackers Team has issued a...\n\n';
 
