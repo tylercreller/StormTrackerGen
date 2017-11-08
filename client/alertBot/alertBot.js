@@ -46,19 +46,38 @@ Template.alertBot.helpers({
 });
 
 Template.alertBot.events({
-    'click .all-checkbox': function () {
-        var checked = $('.all-checkbox').prop('checked');
-        $('.county-choices').find('input:checkbox').prop('checked', checked);
+    'click .all-choice': function () {
+        var checked = $('.all-choice').hasClass('active');
+        if(!checked) {
+            $('.county-choices').find('.county-choice').each(function () {
+                $(this).addClass('active');
+            });
+        } else {
+            $('.county-choices').find('.county-choice').each(function () {
+                $(this).removeClass('active');
+            });
+        }
     },
-    'click input:checkbox': function() {
+    'click .county-choice': function(event, target) {
         var locationsToFilter = [],
-            countyChoices = $(".county-choices").find('input:checkbox');
+            countyChoices = $(".county-choices").find('.county-choice');
+
+        if($(event.currentTarget).hasClass('active')) {
+            $(event.currentTarget).removeClass('active')
+        } else {
+            $(event.currentTarget).addClass('active')
+        }
+
         countyChoices.each(function() {
-            if ($(this).val() !== 'All' && $(this).prop('checked')) {
-                locationsToFilter.push($(this).val());
+            if ($(this)[0].innerText.trim() !== 'All' && $(this).hasClass('active')) {
+                locationsToFilter.push($(this)[0].innerText.trim());
             }
         });
-        $('.all-checkbox').prop('checked', (countyChoices.length - 1) === locationsToFilter.length);
+        if ((countyChoices.length - 1) === locationsToFilter.length) {
+            $('.all-choice').addClass('active');
+        } else {
+            $('.all-choice').removeClass('active');
+        }
         self.alertsHandle.stop();
         if(locationsToFilter.length) {
             self.alertsHandle = Meteor.subscribe('alerts', {$or: [{locations: {$in: locationsToFilter}}, {locations: []}]}, {sort: {"createdAt": -1}, limit: 20});

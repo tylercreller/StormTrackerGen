@@ -4,55 +4,54 @@
         <h4>Live Alerts <div class="live-icon">⏺</div></h4>
     </div>
     <div class="county-choices">
-        <div class="row">
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6"><label class="checkbox-inline"><input class="all-checkbox" type="checkbox" checked="checked" value="All">All</label></div>
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6"><label class="checkbox-inline"><input type="checkbox" checked="checked" value="Cayuga">Cayuga</label></div>
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6"><label class="checkbox-inline"><input type="checkbox" checked="checked" value="Lakeshore">Lakeshore</label></div>
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6"><label class="checkbox-inline"><input type="checkbox" checked="checked" value="Monroe">Monroe</label></div>
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6"><label class="checkbox-inline"><input type="checkbox" checked="checked" value="Ontario">Ontario</label></div>
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6"><label class="checkbox-inline"><input type="checkbox" checked="checked" value="Seneca">Seneca</label></div>
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6"><label class="checkbox-inline"><input type="checkbox" checked="checked" value="Wayne">Wayne</label></div>
-            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6"><label class="checkbox-inline"><input type="checkbox" checked="checked" value="Yates">Yates</label></div>
-        </div>
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">Filter by County</a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active county-choice all-choice"><a href="#">All</a></li>
+                        <li class="active county-choice"><a href="#">Cayuga</a></li>
+                        <li class="active county-choice"><a href="#">Lakeshore</a></li>
+                        <li class="active county-choice"><a href="#">Monroe</a></li>
+                        <li class="active county-choice"><a href="#">Ontario</a></li>
+                        <li class="active county-choice"><a href="#">Seneca</a></li>
+                        <li class="active county-choice"><a href="#">Wayne</a></li>
+                        <li class="active county-choice"><a href="#">Yates</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="mailto:stormtrackershotline@gmail.com" target="_blank">Contact Us!</a></li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
     </div>
-    <table class="table live-table">
+    <table class="table live-table-2">
         <thead>
         <tr>
+            <th>Alert Type</th>
             <th>Issued</th>
             <th>Location(s)</th>
-            <th>Alert Type</th>
-            <th>Alert Link</th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         {{#each issuedAlerts}}
             <tr class="{{toLower alertLevel}}">
-                <td class="table-date">{{dateFormat createdAt}}</td>
-                <td>{{formatLocations locations}}</td>
-                <td>{{alertType}}</td>
+                <td data-th="Alert Type">{{alertType}}</td>
+                <td data-th="Issued" class="table-date">{{dateFormat createdAt}}</td>
+                <td data-th="Location(s)">{{formatLocations locations}}</td>
                 <td class="table-see-alert"><button type="button" class="btn btn-default see-alert-button">See Alert</button></td>
             </tr>
         {{/each}}
-        <!--<tr class="danger">-->
-        <!--<td>Danger</td>-->
-        <!--<td>Moe</td>-->
-        <!--<td>mary@example.com</td>-->
-        <!--</tr>-->
-        <!--<tr class="info">-->
-        <!--<td>Info</td>-->
-        <!--<td>Dooley</td>-->
-        <!--<td>july@example.com</td>-->
-        <!--</tr>-->
-        <!--<tr class="warning">-->
-        <!--<td>Warning</td>-->
-        <!--<td>Refs</td>-->
-        <!--<td>bo@example.com</td>-->
-        <!--</tr>-->
-        <!--<tr class="active">-->
-        <!--<td>Active</td>-->
-        <!--<td>Activeson</td>-->
-        <!--<td>act@example.com</td>-->
-        <!--</tr>-->
         </tbody>
         {{#unless issuedAlerts}}
             <h3>There are currently no alerts issued for your selected area.</h3>
