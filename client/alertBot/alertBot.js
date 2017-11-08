@@ -60,7 +60,8 @@ Template.alertBot.events({
     },
     'click .county-choice': function(event, target) {
         var locationsToFilter = [],
-            countyChoices = $(".county-choices").find('.county-choice');
+            countyChoices = $(".county-choices").find('.county-choice'),
+            filterArr = [];
 
         if($(event.currentTarget).hasClass('active')) {
             $(event.currentTarget).removeClass('active')
@@ -80,9 +81,13 @@ Template.alertBot.events({
         }
         self.alertsHandle.stop();
         if(locationsToFilter.length) {
-            self.alertsHandle = Meteor.subscribe('alerts', {$or: [{locations: {$in: locationsToFilter}}, {locations: []}]}, {sort: {"createdAt": -1}, limit: 20});
-        } else {
-            self.alertsHandle = Meteor.subscribe('alerts', {locations: []}, {sort: {"createdAt": -1}, limit: 20});
+            filterArr.push({locations: {$in: locationsToFilter}});
+        }
+        if (locationsToFilter.indexOf('Not Specified') > -1) {
+            filterArr.push({locations: []});
+        }
+        if(_.some(filterArr)) {
+            self.alertsHandle = Meteor.subscribe('alerts', {$or: filterArr}, {sort: {"createdAt": -1}, limit: 20});
         }
     },
     'click .see-alert-button': function() {
