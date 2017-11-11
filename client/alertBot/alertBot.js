@@ -1,14 +1,37 @@
+import { Session } from 'meteor/session';
+
 var self = this,
     dateFormat = require('dateformat');
 
-Template.alertBot.onCreated(function onCreated() {
-    self.alertsHandle = Meteor.subscribe('alerts', {}, {sort: {"createdAt": -1}, limit: 20});
+Template.alertBot.onCreated(function onCreated() {});
+
+Template.alertBot.onRendered(function onRendered() {
+    var activeFilters = Session.get('activeFilters'),
+        allFilters =  $('.county-choice'),
+        notification,
+        audio;
+
+    if (self.alertsHandle) {
+        self.alertsHandle.stop();
+    }
+    if (!!activeFilters) {
+        self.alertsHandle = Meteor.subscribe('alerts', {$or: activeFilters}, {sort: {"createdAt": -1}, limit: 20});
+        if (allFilters.length === activeFilters[0].locations.$in.length) {
+            $('.county-choice[value="All"]').addClass('active');
+        }
+        _.forEach(activeFilters[0].locations.$in, function doEach(name) {
+            $('.county-choice[value="' + name + '"]').addClass('active');
+        })
+    } else {
+        self.alertsHandle = Meteor.subscribe('alerts', {}, {sort: {"createdAt": -1}, limit: 20});
+        allFilters.addClass('active');
+    }
 
     self.alertWatch = Alerts.find().observeChanges({
         added: function (id, object) {
             if ("Notification" in window && self.alertsHandle && self.alertsHandle.ready()) {
-                var notification = new Notification('You have new alerts.', {icon: '/st-logo.jpeg'}),
-                    audio = new Audio('ding.wav');
+                notification = new Notification('You have new alerts.', {icon: '/st-logo.jpeg'});
+                audio = new Audio('ding.wav');
                 audio.addEventListener('canplaythrough', function() {
                     audio.play();
                 });
@@ -82,13 +105,12 @@ Template.alertBot.events({
         self.alertsHandle.stop();
         if(locationsToFilter.length) {
             filterArr.push({locations: {$in: locationsToFilter}});
-        }
-        if (locationsToFilter.indexOf('Not Specified') > -1) {
-            filterArr.push({locations: []});
-        }
-        if(_.some(filterArr)) {
+            if (locationsToFilter.indexOf('Not Specified') > -1) {
+                filterArr.push({locations: []});
+            }
             self.alertsHandle = Meteor.subscribe('alerts', {$or: filterArr}, {sort: {"createdAt": -1}, limit: 20});
         }
+        Session.set('activeFilters', filterArr);
     },
     'click .see-alert-button': function() {
         Router.go('/alert/' + this._id);

@@ -1,7 +1,7 @@
 <template name="alertBot">
     <div class="page-header">
         <h1>Storm Trackers Team Alert Center</h1>
-        <h4>Live Alerts <div class="live-icon">⏺</div></h4>
+        <h4>Live Alerts <div class="live-icon glyphicon glyphicon-record"></div></h4>
     </div>
     <div class="county-choices">
         <nav class="navbar navbar-inverse">
@@ -18,15 +18,15 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active county-choice all-choice"><a href="#">All</a></li>
-                        <li class="active county-choice"><a href="#">Cayuga</a></li>
-                        <li class="active county-choice"><a href="#">Lakeshore</a></li>
-                        <li class="active county-choice"><a href="#">Monroe</a></li>
-                        <li class="active county-choice"><a href="#">Ontario</a></li>
-                        <li class="active county-choice"><a href="#">Seneca</a></li>
-                        <li class="active county-choice"><a href="#">Wayne</a></li>
-                        <li class="active county-choice"><a href="#">Yates</a></li>
-                        <li class="active county-choice"><a href="#">Not Specified</a></li>
+                        <li class="county-choice all-choice" value="All"><a href="#">All</a></li>
+                        <li class="county-choice" value="Cayuga"><a href="#">Cayuga</a></li>
+                        <li class="county-choice" value="Lakeshore"><a href="#">Lakeshore</a></li>
+                        <li class="county-choice" value="Monroe"><a href="#">Monroe</a></li>
+                        <li class="county-choice" value="Ontario"><a href="#">Ontario</a></li>
+                        <li class="county-choice" value="Seneca"><a href="#">Seneca</a></li>
+                        <li class="county-choice" value="Wayne"><a href="#">Wayne</a></li>
+                        <li class="county-choice" value="Yates"><a href="#">Yates</a></li>
+                        <li class="county-choice" value="Not Specified"><a href="#">Not Specified</a></li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="mailto:stormtrackershotline@gmail.com" target="_blank">Contact Us!</a></li>

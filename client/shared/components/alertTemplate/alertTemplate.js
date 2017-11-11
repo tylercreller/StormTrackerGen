@@ -1,5 +1,4 @@
 Template.alertTemplate.onCreated(function onCreated() {
-    self.alertsHandle = Meteor.subscribe('alerts');
     $('body').addClass('no-bg');
 });
 
