@@ -6,6 +6,8 @@ var self = this,
 Template.alertBot.onCreated(function onCreated() {});
 
 Template.alertBot.onRendered(function onRendered() {
+    self.filterCount = 0;
+
     var activeFilters = Session.get('activeFilters'),
         allFilters =  $('.county-choice'),
         notification,
@@ -18,14 +20,19 @@ Template.alertBot.onRendered(function onRendered() {
         self.alertsHandle = Meteor.subscribe('alerts', {$or: activeFilters}, {sort: {"createdAt": -1}, limit: 20});
         if (allFilters.length === activeFilters[0].locations.$in.length) {
             $('.county-choice[value="All"]').addClass('active');
+            self.filterCount += 1;
         }
         _.forEach(activeFilters[0].locations.$in, function doEach(name) {
             $('.county-choice[value="' + name + '"]').addClass('active');
+            self.filterCount += 1;
         })
     } else {
         self.alertsHandle = Meteor.subscribe('alerts', {}, {sort: {"createdAt": -1}, limit: 20});
         allFilters.addClass('active');
+        self.filterCount = 9;
     }
+
+    $('.filterCount > .count').text(self.filterCount);
 
     self.alertWatch = Alerts.find().observeChanges({
         added: function (id, object) {
@@ -74,12 +81,15 @@ Template.alertBot.events({
         if(!checked) {
             $('.county-choices').find('.county-choice').each(function () {
                 $(this).addClass('active');
+                self.filterCount = 9;
             });
         } else {
             $('.county-choices').find('.county-choice').each(function () {
+                self.filterCount = 0;
                 $(this).removeClass('active');
             });
         }
+        $('.filterCount > .count').text(self.filterCount);
     },
     'click .county-choice': function(event, target) {
         var locationsToFilter = [],
@@ -87,9 +97,11 @@ Template.alertBot.events({
             filterArr = [];
 
         if($(event.currentTarget).hasClass('active')) {
-            $(event.currentTarget).removeClass('active')
+            $(event.currentTarget).removeClass('active');
+            self.filterCount -= 1;
         } else {
-            $(event.currentTarget).addClass('active')
+            $(event.currentTarget).addClass('active');
+            self.filterCount += 1;
         }
 
         countyChoices.each(function() {
@@ -99,8 +111,10 @@ Template.alertBot.events({
         });
         if ((countyChoices.length - 1) === locationsToFilter.length) {
             $('.all-choice').addClass('active');
-        } else {
+            self.filterCount += 1;
+        } else if ( $('.all-choice').hasClass('active')) {
             $('.all-choice').removeClass('active');
+            self.filterCount -= 1;
         }
         self.alertsHandle.stop();
         if(locationsToFilter.length) {
@@ -111,6 +125,7 @@ Template.alertBot.events({
             self.alertsHandle = Meteor.subscribe('alerts', {$or: filterArr}, {sort: {"createdAt": -1}, limit: 20});
         }
         Session.set('activeFilters', filterArr);
+        $('.filterCount > .count').text(self.filterCount);
     },
     'click .see-alert-button': function() {
         Router.go('/alert/' + this._id);
