@@ -59,7 +59,11 @@ Template.alertBot.onDestroyed(function onDestroyed() {
 
 Template.alertBot.helpers({
     issuedAlerts: function () {
-        return Alerts.find().fetch();
+        return Alerts.find().fetch().sort(function compare(a, b) {
+            var dateA = new Date(a.createdAt),
+                dateB = new Date(b.createdAt);
+            return dateB - dateA;
+        });
     },
     dateFormat: function (date) {
         return dateFormat(date, "ddd, mmm dS, yyyy h:MM TT");
