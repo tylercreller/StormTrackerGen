@@ -87,7 +87,7 @@ self.generateText = function generateText(instance) {
         return;
     }
 
-    if (alertType[0] === 'Misc') {
+    if (alertType[0] !== 'Misc') {
         text += 'STORM TRACKERS TEAM NY ALERT\n';
     } else {
         text += alertLevel[0] + '\n';
@@ -98,7 +98,7 @@ self.generateText = function generateText(instance) {
     var now = new Date();
     text += dateFormat(now, "dddd, mmmm dS, yyyy @ h:MM TT") + '\n\n';
 
-    if (alertType[0] === 'Misc') {
+    if (alertType[0] !== 'Misc') {
         // Title text
         text += 'The Storm Trackers Team has issued a...\n\n';
 
