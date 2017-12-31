@@ -395,4 +395,9 @@ Template.weatherForm.events({
             }, 3000);
         }
     },
+
+    'click #reset' (event, instance) {
+        event.preventDefault();
+        location.reload();
+    }
 });

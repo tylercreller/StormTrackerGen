@@ -12,7 +12,7 @@
                 target="_blank"><span class="glyphicon glyphicon-list-alt"></span> Changelog</a></li>
     </ul>
 
-    <form class="weather-form">
+    <form class="weather-form" id="weatherForm">
 
         {{> alertLevels}}
 
@@ -20,14 +20,14 @@
 
         <div class="row">
             <div class=" date-time col-sm-6">
-                <label for="startDate">Time Start</label>
+                <label for="startDate">Start Time</label>
                 <div class="input-group startDateTime">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     <input class="start-date form-control" type="text" name="startDate"/>
                 </div>
             </div>
             <div class="date-time col-sm-6">
-                <label for="endDate">Time Expires</label>
+                <label for="endDate">End Time</label>
                 <div class="input-group endDateTime">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
                     <input class="end-date form-control" type="text" name="endDate"/>
@@ -142,9 +142,10 @@
                 <div class="col-sm-6">
                     <button class="publish-storm-trackers-team-ny-live btn btn-default" type="button">Publish to Live App</button>
                 </div>
+                <div class="col-sm-6">
+                    <button class="btn btn-default" type="button" id="reset">Reset Form</button>
+                </div>
             </div>
-
-
             <!--
             <div class="row">
                 <div class="row">
