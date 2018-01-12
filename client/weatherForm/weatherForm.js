@@ -108,7 +108,7 @@ self.generateText = function generateText(instance) {
     }
 
     if (startDate.toString() !== 'Invalid Date' || customStartCheck) {
-        text += 'TIME START: ';
+        text += 'START TIME: ';
         // Time Start
         if (customStartCheck) {
             text += customStartVal;
@@ -119,7 +119,7 @@ self.generateText = function generateText(instance) {
     }
 
     if (endDate.toString() !== 'Invalid Date' || customEndCheck) {
-        text += 'TIME END: ';
+        text += 'END TIME: ';
         // Time expires
         if (customEndCheck) {
             text += customEndVal;
