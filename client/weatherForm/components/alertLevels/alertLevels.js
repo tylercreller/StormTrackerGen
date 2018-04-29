@@ -49,8 +49,8 @@ Template.alertLevels.events({
                     'Action Alert for General Flooding',
                     'Potential Alert for Rapid Flooding',
                     'Immediate Action Alert for Rapid Flooding',
-                    'Potential Alert for Waterfront Flooding',
-                    'Action Alert for Waterfront Flooding'
+                    'Potential Alert for Waterfront Flooding / Erosion',
+                    'Action Alert for Waterfront Flooding / Erosion'
                 ],
                 'T-Storm': [
                     'Potential Alert for Strong to Severe T-Storms',
@@ -60,9 +60,10 @@ Template.alertLevels.events({
                     'Emergency Action Alert for Tornadic T-Storm'
                 ],
                 'Winter': [
+                    'Awareness Alert for Minor Icing',
+                    'Awareness Alert for Icing',
                     'Awareness Alert for Hazardous Travel',
                     'Action Alert for Dangerous Travel',
-                    'Action Alert for Travel Not Recommended',
                     'Potential Alert for Moderate Winter Storm',
                     'Action Alert for Moderate Winter Storm',
                     'Potential Alert for Major Winter Storm',
@@ -86,8 +87,6 @@ Template.alertLevels.events({
                 'Marine': [
                     'Potential Mariners Alert for Waterspouts',
                     'Immediate Action Mariners Alert for Waterspouts',
-                    'Potential Mariners Alert for Lakeside Flooding / Erosion',
-                    'Action Mariners Alert for Lakeside Flooding / Erosion',
                     'Immediate Action Mariners Alert for Strong to Severe T-Storms',
                     'Potential Mariners Alert for Strong Winds / Wave Action',
                     'Action Mariners Alert for Strong Winds / Wave Action'
