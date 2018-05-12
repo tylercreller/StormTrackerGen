@@ -61,7 +61,6 @@ Template.alertLevels.events({
                 ],
                 'Winter': [
                     'Awareness Alert for Minor Icing',
-                    'Awareness Alert for Icing',
                     'Awareness Alert for Hazardous Travel',
                     'Action Alert for Dangerous Travel',
                     'Potential Alert for Moderate Winter Storm',
