@@ -88,7 +88,9 @@ Template.alertLevels.events({
                     'Immediate Action Mariners Alert for Waterspouts',
                     'Immediate Action Mariners Alert for Strong to Severe T-Storms',
                     'Potential Mariners Alert for Strong Winds / Wave Action',
-                    'Action Mariners Alert for Strong Winds / Wave Action'
+                    'Action Mariners Alert for Strong Winds / Wave Action',
+                    'Shoreline Potential Alert for Waterspouts Coming Ashore',
+                    'Shoreline Action Alert for Waterspouts Coming Ashore'
                 ],
                 'Misc': [
                     'Special Weather Report',
