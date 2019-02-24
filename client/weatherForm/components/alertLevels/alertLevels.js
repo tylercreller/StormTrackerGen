@@ -107,7 +107,8 @@ Template.alertLevels.events({
 					'Special Weather Report',
 					'Special Alert(s) Update Report',
 					'Special Damage Report',
-					'Hazardous Weather Report'
+					'Hazardous Weather Report',
+					'Emergency Alert'
 				]
 			},
 			alertDefList = alertDefsObj[alertType];
