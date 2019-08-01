@@ -70,8 +70,8 @@ self.generateText = function generateText(instance) {
         countyLocation = processValues(instance.lastNode.countyLocation),
         county = processValues(instance.lastNode.county),
         forecastersBriefing = $('.forecasters-briefing textarea')[0].value,
-        fullName = Meteor.user().profile.name,
-        text = '',
+        fullName = Meteor.user().emails[0].address === 'jmweatherbum@gmail.com' ? 'Jack Matthys' : 'William Boggess',
+        text = ''
         levelDefs = {
             'Awareness': 'Awareness Level - Nuisance weather expected, some level of caution needed.',
             'Potential': 'Potential Level - Possibility of hazardous weather. Continue to monitor situation.',
@@ -384,7 +384,7 @@ Template.weatherForm.events({
                 locations: _.uniq(_.sortBy(counties, function(county){return county}), true),
                 alertType: alertType[0],
                 alertLevel: alertType[0].split(' ')[0],
-                user: Meteor.user().profile.name,
+                user: Meteor.user().emails[0].address,
                 createdAt: new Date()
             });
 
