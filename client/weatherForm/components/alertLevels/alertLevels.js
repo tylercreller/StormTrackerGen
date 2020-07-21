@@ -65,8 +65,7 @@ Template.alertLevels.events({
 				],
 				'T-Storm': [
 					'Potential Alert for Strong to Severe T-Storms',
-					'Immediate Action Alert for Strong T-Storm',
-					'Immediate Action Alert for Severe T-Storm',
+					'Immediate Action Alert for Strong / Severe T-Storm',
 					'Immediate Action Alert for Rotating T-Storm',
 					'Emergency Action Alert for Tornadic T-Storm'
 				],
