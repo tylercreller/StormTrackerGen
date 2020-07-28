@@ -24,7 +24,6 @@ accounts-ui
 less@2.7.9
 http@1.2.12
 twbs:bootstrap
-rajit:bootstrap3-datepicker
 tsega:bootstrap3-datetimepicker
 facebook-config-ui@1.0.0
 erasaur:meteor-lodash
