@@ -1,14 +1,14 @@
 {
-  "name": "index",
-  "private": true,
-  "scripts": {
-    "start": "meteor run"
-  },
-  "dependencies": {
-    "babel-runtime": "^6.23.0",
-    "clipboard": "^1.7.1",
-    "dateformat": "^2.0.0",
-    "eslint": "^4.10.0",
-    "meteor-node-stubs": "^0.2.5"
-  }
+	"name": "index",
+	"private": true,
+	"scripts": {
+		"start": ".meteor/heroku_build/bin/node $NODEJS_PARAMS .meteor/heroku_build/app/main.js"
+	},
+	"dependencies": {
+		"babel-runtime": "^6.23.0",
+		"clipboard": "^1.7.1",
+		"dateformat": "^2.0.0",
+		"eslint": "^4.10.0",
+		"meteor-node-stubs": "^0.2.5"
+	}
 }
