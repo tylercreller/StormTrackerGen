@@ -2,7 +2,7 @@
 	"name": "index",
 	"private": true,
 	"scripts": {
-		"start": ".meteor/heroku_build/bin/node $NODEJS_PARAMS .meteor/heroku_build/app/main.js"
+		"start": "meteor run"
 	},
 	"dependencies": {
 		"babel-runtime": "^6.23.0",
